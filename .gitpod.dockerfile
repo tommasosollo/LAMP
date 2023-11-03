@@ -9,4 +9,4 @@ COPY etc/php.ini /etc/php/8.1/apache2/php.ini
 ENV APACHE_DOCROOT_IN_REPO="www"
 
 RUN sudo install-packages php-xdebug
-#RUN sed -i "s/;extension=pdo_mysql/extension=pdo_mysql/g" /etc/php/
+#RUN sed -i "s/;extension=pdo_mysql/extension=pdo_mysql/g" /etc/php/7.2/cli/php.ini
