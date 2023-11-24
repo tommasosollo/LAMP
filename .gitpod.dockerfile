@@ -4,6 +4,7 @@ FROM gitpod/workspace-mysql
 # optional: use a custom apache config.
 COPY etc/apache2/apache2.conf /etc/apache2/apache2.conf
 COPY etc/php.ini /etc/php/8.1/apache2/php.ini
+COPY etc/my.cnf /etc/mysql/my.cnf
 
 # optional: change document root folder. It's relative to your git working copy.
 ENV APACHE_DOCROOT_IN_REPO="www"
