@@ -8,7 +8,7 @@ pid-file	= /var/run/mysqld/mysqld.pid
 socket		= /var/run/mysqld/mysqld.sock
 port		= 3306
 basedir		= /usr
-datadir		= /workspace/LAMP_TEMPLATE/mysql
+datadir		= /workspace/LAMP_TEMPLATE/mysql_db
 tmpdir		= /tmp
 lc-messages-dir	= /usr/share/mysql
 skip-external-locking
