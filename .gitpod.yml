@@ -6,6 +6,7 @@ ports:
   - port: 8787
     onOpen: open-browser
 # List the start up tasks. Learn more https://www.gitpod.io/docs/config-start-tasks/
+# sudo cp /workspace/LAMP/etc/my.cnf /etc/mysql/my.cnf
 tasks:
   - name: Apache
     command: >
@@ -14,7 +15,7 @@ tasks:
   - name: Terminal
     command: |
       sudo service mysql stop 
-      sudo cp /workspace/LAMP/etc/my.cnf /etc/mysql/my.cnf
+      sudo cp /workspace/LAMP/etc/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf 
       sudo service mysql start
       apachectl stop;
       apachectl start;
