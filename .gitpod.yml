@@ -14,12 +14,6 @@ tasks:
       multitail /var/log/apache2/access.log -I /var/log/apache2/error.log
   - name: Terminal
     command: |
-      sudo service mysql stop 
-      ls /workspace/
-      mkdir /workspace/LAMP_TMP
-      sudo cp /workspace/LAMP_TMP/etc/my.cnf /etc/mysql/my.cnf
-      sudo cp /workspace/LAMP_TMP/etc/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf 
-      sudo service mysql start
       apachectl stop;
       apachectl start;
       clear
