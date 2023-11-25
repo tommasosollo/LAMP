@@ -8,7 +8,7 @@ pid-file	= /var/run/mysqld/mysqld.pid
 socket		= /var/run/mysqld/mysqld.sock
 port		= 3306
 basedir		= /usr
-datadir		= /workspace/LAMP_TEMPLATE/mysql_db
+datadir		= /workspace/LAMP_DEMO/mysql_db
 tmpdir		= /tmp
 lc-messages-dir	= /usr/share/mysql
 skip-external-locking
@@ -21,6 +21,6 @@ thread_cache_size   = 8
 
 myisam-recover-options  = BACKUP
 
-general_log_file        = /workspace/LAMP_TEMPLATE/mysql.log
+general_log_file        = /workspace/LAMP_DEMO/mysql.log
 general_log             = 1
-log_error               = /workspace/LAMP_TEMPLATE/error.log
+log_error               = /workspace/LAMP_DEMO/error.log

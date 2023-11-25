@@ -15,8 +15,8 @@ tasks:
   - name: Terminal
     command: |
       sudo service mysql stop 
-      sudo cp /workspace/LAMP_TEMPLATE/etc/my.cnf /etc/mysql/my.cnf
-      sudo cp /workspace/LAMP_TEMPLATE/etc/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf 
+      sudo cp /workspace/LAMP_DEMO/etc/my.cnf /etc/mysql/my.cnf
+      sudo cp /workspace/LAMP_DEMO/etc/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf 
       sudo service mysql start
       apachectl stop;
       apachectl start;
