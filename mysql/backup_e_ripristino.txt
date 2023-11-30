@@ -19,3 +19,6 @@ SHOW TABLES;
 SELECT * FROM libri;
 SELECT * FROM libri INNER JOIN autori WHERE libri.id_autore=autori.id_autore;
 
+mysqlshow;
+mysqlshow biblioteca;
+mysqlshow biblioteca autori;
