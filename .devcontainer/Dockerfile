@@ -26,3 +26,17 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql
 
 # [Optional] Uncomment this line to install global node packages.
 # RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
+
+# Copia delle configurazioni personalizzate per Apache e MySQL
+COPY ../etc/apache2 /etc/apache2/
+COPY ../etc/mysql /etc/mysql/
+COPY ../etc/php.ini /etc/php/8.1/apache2/php.ini
+#COPY ../etc/my.cnf /etc/mysql/my.cnf
+#/etc/mysql/mysql.conf.d/mysqld.cnf
+#/var/lib/mysql
+
+# optional: change document root folder. It's relative to your git working copy.
+ENV APACHE_DOCROOT_IN_REPO="www"
+
+# Avvio dei servizi all'interno del container
+#CMD service mysql start && apache2ctl -D FOREGROUND
