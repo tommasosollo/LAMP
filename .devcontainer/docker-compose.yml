@@ -4,8 +4,9 @@ services:
     dockerfile: Dockerfile #alternativa a image
     ports:
       - "8080:8080"
-    volumes:
-      - ../www:/var/www/html          # Bind mount per la cartella del codice sorgente
+      - "3306:3306"
+    #volumes:
+    #  - ../www:/var/www/html          # Bind mount per la cartella del codice sorgente
     #  - ../etc/apache2:/etc/apache2   # Bind mount per la configurazione di Apache
     #depends_on:
     #  - db
