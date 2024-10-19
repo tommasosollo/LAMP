@@ -44,6 +44,6 @@ COPY ./etc/php/php.ini /usr/local/etc/php/php.ini
 #CMD service apache2 start
 #mariadb -h localhost -P 3306  --protocol=tcp -u root --password=mariadb -D mariadb
 #apache2ctl start
-CMD apache2ctl start
-
+#CMD apache2ctl start
+CMD ["apache2ctl", "-D", "FOREGROUND"]
  
