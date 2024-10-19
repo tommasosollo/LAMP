@@ -30,7 +30,7 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql
 # Copia delle configurazioni personalizzate per Apache e MySQL
 COPY ./etc/apache2 /etc/apache2/
 #COPY ./etc/mysql /etc/mysql/
-#COPY ./etc/php/php.ini /usr/local/etc/php/php.ini
+COPY ./etc/php/php.ini /usr/local/etc/php/php.ini
 #COPY ../etc/my.cnf /etc/mysql/my.cnf
 #/etc/mysql/mysql.conf.d/mysqld.cnf
 #/var/lib/mysql
@@ -42,7 +42,9 @@ ENV APACHE_RUN_USER="www-data"
 ENV APACHE_RUN_GROUP="www-data"
 #ENV APACHE_LOG_DIR="/var/log/apache2"
 #ENV APACHE_PID_FILE="/var/run/apache2/apache2.pid"
-#ENV APACHE_SERVER_NAME=
+ENV APACHE_SERVER_NAME="FB-Apache2"
 
 # Avvio dei servizi all'interno del container
 #CMD service mysql start && apache2ctl -D FOREGROUND
+#sudo service mysql status
+#sudo service apache2 status
