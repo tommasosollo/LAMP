@@ -3,7 +3,7 @@ services:
     #image: php:8.0-apache
     #alternativa a image
     build:
-      #context: ./path/to/context   # Directory di contesto in cui si trova il Dockerfile
+      context: .                   #/path/to/context   # Directory di contesto in cui si trova il Dockerfile
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
