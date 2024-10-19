@@ -46,7 +46,7 @@ COPY ./etc/php/php.ini /usr/local/etc/php/php.ini
 
 
 # Avvio dei servizi all'interno del container
-CMD ["apache2ctl", "-D", "FOREGROUND"]
+#CMD [ "apache2ctl", "-D", "FOREGROUND" ]
 #CMD service mysql start && apache2ctl -D FOREGROUND
 #sudo service mysql status
-# sudo service apache2 status
+CMD service apache2 start
