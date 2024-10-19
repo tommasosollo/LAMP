@@ -30,7 +30,7 @@ RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "umask 0002 && . /usr/
 COPY ../etc/apache2 /etc/apache2/
 COPY ../etc/mysql /etc/mysql/
 COPY ../etc/php.ini /etc/php/8.1/apache2/php.ini
-COPY ../etc/my.cnf /etc/mysql/my.cnf
+#COPY ../etc/my.cnf /etc/mysql/my.cnf
 #/etc/mysql/mysql.conf.d/mysqld.cnf
 #/var/lib/mysql
 
