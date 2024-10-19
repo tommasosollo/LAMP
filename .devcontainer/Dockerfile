@@ -32,9 +32,9 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql
 # Variabili d'ambiente
 ENV GITPOD_REPO_ROOT="/workspaces/LAMP"
 ENV APACHE_DOCROOT="/workspaces/LAMP/www"
-#ENV APACHE_RUN_USER="www-data"
-#ENV APACHE_RUN_GROUP="www-data"
-ENV APACHE_SERVER_NAME="FB-LAMP"
+ENV APACHE_RUN_USER="www-data"
+ENV APACHE_RUN_GROUP="www-data"
+ENV APACHE_SERVER_NAME="FBLAMP"
 
 # Copia i file di configurazione
 COPY ./etc/apache2 /etc/apache2/
