@@ -45,7 +45,7 @@ ENV APACHE_RUN_GROUP="www-data"
 ENV APACHE_SERVER_NAME="FB-Apache2"
 
 # Avvio dei servizi all'interno del container
-CMD apache2ctl -D FOREGROUND
+#CMD apache2ctl -D FOREGROUND
 #CMD service mysql start && apache2ctl -D FOREGROUND
 #sudo service mysql status
 #sudo service apache2 status
