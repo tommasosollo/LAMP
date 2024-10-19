@@ -31,11 +31,7 @@
 
 	// Use 'portsAttributes' to set default properties for specific forwarded ports. More info: https://code.visualstudio.com/docs/remote/devcontainerjson-reference.
 	"portsAttributes": {
-		"80": {
-			"label": "Hello Remote World",
-			"onAutoForward": "openBrowser"
-		},
-		"8080": {
+		"8787": {
 			"label": "Hello Remote World",
 			"onAutoForward": "openBrowser"
 		}
@@ -48,7 +44,7 @@
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "sudo chmod a+x \"$(pwd)\" && sudo rm -rf /var/www/html && sudo ln -s \"$(pwd)\" /var/www/html"
-	"postCreateCommand": "apache2ctl -D FOREGROUND",
+	//"postCreateCommand": "apache2ctl -D FOREGROUND",
 	
 	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "vscode"
