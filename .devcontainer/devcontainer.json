@@ -4,7 +4,6 @@
 	"name": "PHP & MariaDB (Community)",
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "app",
-	"workspaceFolder": "/workspace",
 	#"build": {
 		#	#	"dockerfile": "Dockerfile",
 		#	"args": { 
