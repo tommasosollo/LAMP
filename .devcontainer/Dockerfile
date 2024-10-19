@@ -28,3 +28,19 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql
 
 # [Optional] Uncomment this line to install global node packages.
 # RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
+
+# Variabili d'ambiente
+ENV GITPOD_REPO_ROOT="/workspaces/LAMP"
+ENV APACHE_DOCROOT="/workspaces/LAMP/www"
+ENV APACHE_RUN_USER="www-data"
+ENV APACHE_RUN_GROUP="www-data"
+ENV APACHE_SERVER_NAME="FB-LAMP"
+
+# Copia i file di configurazione
+COPY ./etc/apache2 /etc/apache2/
+COPY ./etc/php/php.ini /usr/local/etc/php/php.ini
+#COPY ./etc/mysql /etc/mysql/
+
+CMD service apache2 start
+#mariadb -h localhost -P 3306  --protocol=tcp -u root --password=mariadb -D mariadb
+#apache2ctl start
