@@ -5,8 +5,8 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ./www:/var/www/html          # Bind mount per la cartella del codice sorgente
-      - ./etc/apache2:/etc/apache2   # Bind mount per la configurazione di Apache
+      - ../www:/var/www/html          # Bind mount per la cartella del codice sorgente
+      - ../etc/apache2:/etc/apache2   # Bind mount per la configurazione di Apache
     depends_on:
       - db
 
@@ -18,7 +18,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./mysql:/var/lib/mysql      # Bind mount per i dati del database
+      - ../mysql:/var/lib/mysql      # Bind mount per i dati del database
 
 #  db:
 #    image: mariadb:10.4
