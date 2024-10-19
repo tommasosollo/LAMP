@@ -41,7 +41,8 @@ COPY ./etc/apache2 /etc/apache2/
 COPY ./etc/php/php.ini /usr/local/etc/php/php.ini
 #COPY ./etc/mysql /etc/mysql/
 
-CMD service apache2 start
+#CMD service apache2 start
+CMD apache2ctl start
 #mariadb -h localhost -P 3306  --protocol=tcp -u root --password=mariadb -D mariadb
 #apache2ctl start
 
