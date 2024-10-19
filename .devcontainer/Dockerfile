@@ -46,3 +46,4 @@ COPY ./etc/php/php.ini /usr/local/etc/php/php.ini
 #apache2ctl start
 CMD apache2ctl start
 
+ 
