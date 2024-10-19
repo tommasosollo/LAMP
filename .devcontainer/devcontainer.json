@@ -25,9 +25,32 @@
 	//	"mrmlnc.vscode-apache"
 	//],
 
+	// Set *default* container specific settings.json values on container create.
+	"settings": { 
+		"sqltools.connections": [{
+			"name": "Container database",
+			"driver": "MariaDB",
+			"server": "localhost",
+			"previewLimit": 50,
+			"port": 3306,
+			"database": "mariadb",
+			"username": "root",
+			"password": "mariadb"
+		}]
+	},
+
+	// Add the IDs of extensions you want installed when the container is created.
+	"extensions": [
+		"felixfbecker.php-debug",
+		"felixfbecker.php-intellisense",
+		"mrmlnc.vscode-apache",
+		"mtxr.sqltools",
+		"mtxr.sqltools-driver-mysql"
+	],
+
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [8080],
-	"forwardPorts": [8787],
+	"forwardPorts": [8787, 3306],
 
 	// Use 'portsAttributes' to set default properties for specific forwarded ports. More info: https://code.visualstudio.com/docs/remote/devcontainerjson-reference.
 	"portsAttributes": {
