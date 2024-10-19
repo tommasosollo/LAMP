@@ -225,3 +225,7 @@ Per utilizzare Docker Compose con un Codespace, è necessario configurare anche 
 
 ### Conclusioni
 Utilizzare Docker Compose con GitHub Codespaces offre un potente strumento per creare ambienti di sviluppo complessi che possono essere configurati in modo rapido e coerente. Definendo servizi come PHP, MySQL e Apache nel file `docker-compose.yml` e integrandoli con `devcontainer.json`, puoi avere un ambiente di sviluppo completo pronto all'uso con un minimo sforzo di configurazione.
+
+# esempi
+
+https://github.com/cytopia/devilbox/blob/master/docker-compose.yml

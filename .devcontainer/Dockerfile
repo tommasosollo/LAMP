@@ -1,42 +1,15 @@
-# Usa un'immagine di base con PHP e Apache già configurati
-# [Choice] PHP version: 8-apache-bullseye, 8.0-apache-bullseye, 7-apache-bullseye, 7.4-apache-bullseye, 7.3-apache-bullseye, 8-apache-buster, 8.0-apache-buster, 7-apache-buster, 7.4-apache-buster, 7.3-apache-buster
-ARG VARIANT=8-apache-bullseye
-FROM php:${VARIANT}
-
-# Install MariaDB client
-RUN apt-get update \
-    && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get install -y mariadb-client \ 
-    && apt-get clean -y \
-    && rm -rf /var/lib/apt/lists/*
-    # in Alternativa - Installazione di MySQL
-    # && apt-get install -y mysql-server \
-    # && rm -rf /var/lib/apt/lists/*
-
-# Install php-mysql driver
-RUN docker-php-ext-install mysqli pdo pdo_mysql
+# See here for image contents: https://github.com/microsoft/vscode-dev-containers/tree/v0.195.0/containers/php/.devcontainer/base.Dockerfile
+# [Choice] PHP version (use -bullseye variants on local arm64/Apple Silicon): 8, 8.0, 7, 7.4, 7.3, 8-bullseye, 8.0-bullseye, 7-bullseye, 7.4-bullseye, 7.3-bullseye, 8-buster, 8.0-buster, 7-buster, 7.4-buster, 7.3-buster
+ARG VARIANT=7-bullseye
+FROM mcr.microsoft.com/vscode/devcontainers/php:0-${VARIANT}
 
 # [Choice] Node.js version: none, lts/*, 16, 14, 12, 10
-ARG NODE_VERSION="lts/*"
+ARG NODE_VERSION="none"
 RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "umask 0002 && . /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION} 2>&1"; fi
-# [Optional] Uncomment this line to install global node packages.
-# RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
 
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 #     && apt-get -y install --no-install-recommends <your-package-list-here>
 
-# Copia delle configurazioni personalizzate per Apache e MySQL
-COPY ../etc/apache2 /etc/apache2/
-COPY ../etc/mysql /etc/mysql/
-COPY ../etc/php.ini /etc/php/8.1/apache2/php.ini
-#COPY ../etc/my.cnf /etc/mysql/my.cnf
-#/etc/mysql/mysql.conf.d/mysqld.cnf
-#/var/lib/mysql
-
-# optional: change document root folder. It's relative to your git working copy.
-ENV APACHE_DOCROOT_IN_REPO="www"
-
-# Avvio dei servizi all'interno del container
-CMD service mysql start && apache2ctl -D FOREGROUND
-
+# [Optional] Uncomment this line to install global node packages.
+# RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
