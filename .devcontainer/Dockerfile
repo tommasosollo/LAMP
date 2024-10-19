@@ -25,7 +25,7 @@ ENV GITPOD_REPO_ROOT="/workspaces/LAMP"
 ENV APACHE_DOCROOT="/workspaces/LAMP/www"
 ENV APACHE_RUN_USER="www-data"
 ENV APACHE_RUN_GROUP="www-data"
-ENV APACHE_SERVER_NAME="FB-LAMP"
+ENV APACHE_SERVER_NAME="FBLAMP"
 #ENV APACHE_LOG_DIR="/var/log/apache2"
 #ENV APACHE_PID_FILE="/var/run/apache2/apache2.pid"
 
@@ -48,5 +48,5 @@ COPY ./etc/php/php.ini /usr/local/etc/php/php.ini
 #CMD service apache2 start
 #CMD service mysql start && apache2ctl -D FOREGROUND
 #CMD sudo service mysql status
-CMD ["apache2ctl", "-D", "FOREGROUND"]
+#CMD ["apache2ctl", "-D", "FOREGROUND"]
 
