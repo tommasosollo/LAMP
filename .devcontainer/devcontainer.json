@@ -8,31 +8,32 @@
 			// Update VARIANT to pick a PHP version: 8, 8.0, 7, 7.4, 7.3
 			// Append -bullseye or -buster to pin to an OS version.
 			// Use -bullseye variants on local on arm64/Apple Silicon.
-			"VARIANT": "7-bullseye",
+			"VARIANT": "8-bullseye",
 			"NODE_VERSION": "lts/*"
 		}
 	},
 	
 	// Set *default* container specific settings.json values on container create.
-	"settings": { 
-		"php.validate.executablePath": "/usr/local/bin/php"
-	},
+	//"settings": { 
+	//	"php.validate.executablePath": "/usr/local/bin/php"
+	//},
 
 	// Add the IDs of extensions you want installed when the container is created.
-	"extensions": [
-		"felixfbecker.php-debug",
-		"bmewburn.vscode-intelephense-client",
-		"mrmlnc.vscode-apache"
-	],
+	//"extensions": [
+	//	"felixfbecker.php-debug",
+	//	"bmewburn.vscode-intelephense-client",
+	//	"mrmlnc.vscode-apache"
+	//],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [8080],
+	"forwardPorts": [8080, 3306],
 
 	// Use 'portsAttributes' to set default properties for specific forwarded ports. More info: https://code.visualstudio.com/docs/remote/devcontainerjson-reference.
 	"portsAttributes": {
-		"8000": {
+		"8080": {
 			"label": "Hello Remote World",
-			"onAutoForward": "notify"
+			"onAutoForward": "openBrowser"
 		}
 	},
 
