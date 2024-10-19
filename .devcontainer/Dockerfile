@@ -38,16 +38,15 @@ ENV APACHE_SERVER_NAME="FB-LAMP"
 
 # Copia delle configurazioni personalizzate per Apache e MySQL
 COPY ./etc/apache2 /etc/apache2/
-#COPY ./etc/mysql /etc/mysql/
 COPY ./etc/php/php.ini /usr/local/etc/php/php.ini
+#COPY ./etc/mysql /etc/mysql/
 #COPY ../etc/my.cnf /etc/mysql/my.cnf
 #/etc/mysql/mysql.conf.d/mysqld.cnf
 #/var/lib/mysql
 
-
 # Avvio dei servizi all'interno del container
-#CMD [ "apache2ctl", "-D", "FOREGROUND" ]
+#CMD service apache2 start
 #CMD service mysql start && apache2ctl -D FOREGROUND
-#sudo service mysql status
-CMD service apache2 start
+#CMD sudo service mysql status
+CMD ["apache2ctl", "-D", "FOREGROUND"]
 
