@@ -36,11 +36,13 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql
 #/var/lib/mysql
 
 # optional: change document root folder. It's relative to your git working copy.
+ENV GITPOD_REPO_ROOT="/workspaces/LAMP"
 ENV APACHE_DOCROOT="/workspaces/LAMP/www"
-#ENV APACHE_LOG_DIR="/var/log/apache2"
 ENV APACHE_RUN_USER="www-data"
 ENV APACHE_RUN_GROUP="www-data"
+#ENV APACHE_LOG_DIR="/var/log/apache2"
 #ENV APACHE_PID_FILE="/var/run/apache2/apache2.pid"
+#ENV APACHE_SERVER_NAME=
 
 # Avvio dei servizi all'interno del container
 #CMD service mysql start && apache2ctl -D FOREGROUND
