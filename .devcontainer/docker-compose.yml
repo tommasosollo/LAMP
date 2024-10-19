@@ -1,24 +1,24 @@
 services:
   web:
-    image: php:8.0-apache
-    #dockerfile: Dockerfile #alternativa a image
+    #image: php:8.0-apache
+    dockerfile: Dockerfile #alternativa a image
     ports:
       - "8080:8080"
     volumes:
       - ../www:/var/www/html          # Bind mount per la cartella del codice sorgente
-      - ../etc/apache2:/etc/apache2   # Bind mount per la configurazione di Apache
-    depends_on:
-      - db
+    #  - ../etc/apache2:/etc/apache2   # Bind mount per la configurazione di Apache
+    #depends_on:
+    #  - db
 
-  db:
-    image: mysql:8.0
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: mydatabase
-    ports:
-      - "3306:3306"
-    volumes:
-      - ../mysql:/var/lib/mysql      # Bind mount per i dati del database
+  #db:
+  #  image: mysql:8.0
+  #  environment:
+  #    MYSQL_ROOT_PASSWORD: rootpassword
+  #    MYSQL_DATABASE: mydatabase
+  #  ports:
+  #    - "3306:3306"
+  #  volumes:
+  #    - ../mysql:/var/lib/mysql      # Bind mount per i dati del database
 
 #  db:
 #    image: mariadb:10.4
