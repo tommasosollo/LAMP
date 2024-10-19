@@ -11,11 +11,10 @@ RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "umask 0002 && . /usr/
 RUN apt-get update \
     && export DEBIAN_FRONTEND=noninteractive \
     && apt-get install -y mariadb-client \ 
-    && apt-get clean -y \
-    && rm -rf /var/lib/apt/lists/*
     # in Alternativa - Installazione di MySQL
     # && apt-get install -y mysql-server \
-    # && rm -rf /var/lib/apt/lists/*
+    && apt-get clean -y \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install php-mysql driver
 RUN docker-php-ext-install mysqli pdo pdo_mysql
@@ -47,6 +46,5 @@ COPY ./etc/php/php.ini /usr/local/etc/php/php.ini
 # Avvio dei servizi all'interno del container
 #CMD service apache2 start
 #CMD service mysql start && apache2ctl -D FOREGROUND
-#CMD sudo service mysql status
-#CMD ["apache2ctl", "-D", "FOREGROUND"]
-
+#apache2ctl -D FOREGROUND
+#mariadb -h localhost -P 3306  --protocol=tcp -u root --password=mariadb -D mariadb
