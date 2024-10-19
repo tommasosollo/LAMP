@@ -1,5 +1,8 @@
+# [Choice] PHP version: 8-apache-bullseye, 8.0-apache-bullseye, 7-apache-bullseye, 7.4-apache-bullseye, 7.3-apache-bullseye, 8-apache-buster, 8.0-apache-buster, 7-apache-buster, 7.4-apache-buster, 7.3-apache-buster
+#ARG VARIANT=8-apache-bullseye
+#FROM php:${VARIANT}
 # Usa un'immagine di base con PHP e Apache già configurati
-FROM mcr.microsoft.com/devcontainers/php:8-apache
+FROM mcr.microsoft.com/devcontainers/php:8-apache-bullseye
 
 # Install MariaDB client
 RUN apt-get update \
