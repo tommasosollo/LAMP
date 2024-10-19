@@ -31,6 +31,10 @@
 
 	// Use 'portsAttributes' to set default properties for specific forwarded ports. More info: https://code.visualstudio.com/docs/remote/devcontainerjson-reference.
 	"portsAttributes": {
+		"80": {
+			"label": "Hello Remote World",
+			"onAutoForward": "openBrowser"
+		},
 		"8080": {
 			"label": "Hello Remote World",
 			"onAutoForward": "openBrowser"

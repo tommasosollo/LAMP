@@ -28,9 +28,9 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql
 # RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
 
 # Copia delle configurazioni personalizzate per Apache e MySQL
-COPY ./etc/apache2 /etc/apache2/
-COPY ./etc/mysql /etc/mysql/
-COPY ./etc/php/php.ini /usr/local/etc/php/php.ini
+#COPY ./etc/apache2 /etc/apache2/
+#COPY ./etc/mysql /etc/mysql/
+#COPY ./etc/php/php.ini /usr/local/etc/php/php.ini
 #COPY ../etc/my.cnf /etc/mysql/my.cnf
 #/etc/mysql/mysql.conf.d/mysqld.cnf
 #/var/lib/mysql
