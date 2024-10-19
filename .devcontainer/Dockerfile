@@ -20,6 +20,15 @@ RUN apt-get update \
 # Install php-mysql driver
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 
+# optional: change document root folder. It's relative to your git working copy.
+ENV GITPOD_REPO_ROOT="/workspaces/LAMP"
+ENV APACHE_DOCROOT="/workspaces/LAMP/www"
+ENV APACHE_RUN_USER="www-data"
+ENV APACHE_RUN_GROUP="www-data"
+ENV APACHE_SERVER_NAME="FB-LAMP"
+#ENV APACHE_LOG_DIR="/var/log/apache2"
+#ENV APACHE_PID_FILE="/var/run/apache2/apache2.pid"
+
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 #     && apt-get -y install --no-install-recommends <your-package-list-here>
@@ -35,17 +44,9 @@ COPY ./etc/php/php.ini /usr/local/etc/php/php.ini
 #/etc/mysql/mysql.conf.d/mysqld.cnf
 #/var/lib/mysql
 
-# optional: change document root folder. It's relative to your git working copy.
-ENV GITPOD_REPO_ROOT="/workspaces/LAMP"
-ENV APACHE_DOCROOT="/workspaces/LAMP/www"
-ENV APACHE_RUN_USER="www-data"
-ENV APACHE_RUN_GROUP="www-data"
-#ENV APACHE_LOG_DIR="/var/log/apache2"
-#ENV APACHE_PID_FILE="/var/run/apache2/apache2.pid"
-ENV APACHE_SERVER_NAME="FB-Apache2"
 
 # Avvio dei servizi all'interno del container
-#CMD apache2ctl -D FOREGROUND
+CMD apache2ctl -D FOREGROUND
 #CMD service mysql start && apache2ctl -D FOREGROUND
 #sudo service mysql status
 #sudo service apache2 status
