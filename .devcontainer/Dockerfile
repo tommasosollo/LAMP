@@ -27,10 +27,10 @@ RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "umask 0002 && . /usr/
 #     && apt-get -y install --no-install-recommends <your-package-list-here>
 
 # Copia delle configurazioni personalizzate per Apache e MySQL
-COPY ./etc/apache2 /etc/apache2/
-COPY ./etc/mysql /etc/mysql/
-COPY ./etc/php.ini /etc/php/8.1/apache2/php.ini
-#COPY ./etc/my.cnf /etc/mysql/my.cnf
+COPY ../etc/apache2 /etc/apache2/
+COPY ../etc/mysql /etc/mysql/
+COPY ../etc/php.ini /etc/php/8.1/apache2/php.ini
+COPY ../etc/my.cnf /etc/mysql/my.cnf
 #/etc/mysql/mysql.conf.d/mysqld.cnf
 #/var/lib/mysql
 
