@@ -1,7 +1,10 @@
 services:
   web:
     #image: php:8.0-apache
-    dockerfile: Dockerfile #alternativa a image
+    #alternativa a image
+    build:
+      #context: ./path/to/context   # Directory di contesto in cui si trova il Dockerfile
+      dockerfile: Dockerfile
     ports:
       - "8080:8080"
       - "3306:3306"
