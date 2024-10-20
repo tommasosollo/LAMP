@@ -1,12 +1,18 @@
 # PHP
 
-Template per creare un Server LAMP con GitPod
+Template per creare un Server LAMP con GitPod oppure con Codespace
 
 Esercitazioni collegate:
 https://fb-labs.blogspot.com/p/informatica.html
 
-Dopo aver clonato questo repository (https://github.com/filippo-bilardo/LAMP), avviare GitPod.
-Per collegarsi a mysql digitare il comando: mysql -u root
+Dopo aver clonato questo repository (https://github.com/filippo-bilardo/LAMP), avviare GitPod o Codespace.
+
+Per avviare il server web: apache2ctl start
+
+Per collegarsi a mysql da Gitpod digitare il comando: mysql -u root
+
+Da Codespace: mariadb -h localhost -P 3306  --protocol=tcp -u root --password=mariadb -D mariadb
+
 Esempi di pagine php nella cartella www
 Nella cartella etc sono presenti i file di configurazione utilizzati da GitPod per la creazione del server.
 
