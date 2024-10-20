@@ -13,8 +13,18 @@ services:
     # Uncomment the next line to use a non-root user for all processes.
     # user: vscode
 
-    # Use "forwardPorts" in **devcontainer.json** to forward an app port locally. 
-    # (Adding the "ports" property to this file will not forward from a Codespace.)
+    tasks:
+      - name: Terminal
+        command: |
+          apachectl stop;
+          apachectl start;
+          clear
+          echo "";
+          echo "Commands you can try:";
+          echo " * apachectl stop";
+          echo " * apachectl start";
+          echo " * code /var/log/apache2/access.log";
+          echo " * code /var/log/apache2/error.log";
 
   db:
     image: mariadb:10.4
