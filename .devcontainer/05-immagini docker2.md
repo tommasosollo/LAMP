@@ -53,5 +53,3 @@ Questo Dockerfile:
 Una volta creata l'immagine, possiamo avviare un contenitore con il comando `docker run`.
 
 **In sintesi, le immagini Docker sono un modo potente e flessibile per creare e distribuire applicazioni.** Sono diventate uno standard de facto nel mondo del containerization e sono utilizzate da milioni di sviluppatori in tutto il mondo.
-
-**Vuoi approfondire un aspetto specifico delle immagini Docker?** Ad esempio, potremmo parlare di Docker Compose per orchestrare più contenitori, o di Docker Swarm per creare cluster di contenitori. 

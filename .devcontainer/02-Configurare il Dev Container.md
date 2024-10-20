@@ -1,4 +1,4 @@
-## Configurare il Dev Container: Una Guida Completa
+## Configurare il Dev Container
 
 **Cosa è un Dev Container?**
 
@@ -69,11 +69,7 @@ La configurazione di un Dev Container avviene principalmente attraverso un file 
 
 **Risorse utili:**
 
-* **Documentazione ufficiale di GitHub Codespaces:** [https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration](https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration)
-* **Estensioni Dev Container:** [URL non valido rimosso]
+* **Documentazione ufficiale di GitHub Codespaces:** [[https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration](https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration)]
+* **Estensioni Dev Container:** [[https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)]
 
-**Vuoi approfondire un aspetto specifico della configurazione dei Dev Container?** Ad esempio, potresti essere interessato a:
 
-* **Configurare un ambiente di sviluppo per un linguaggio specifico (es. Python, Java).**
-* **Integrare strumenti di testing e debugging nel Dev Container.**
-* **Condividere la configurazione del Dev Container con altri membri del team.**

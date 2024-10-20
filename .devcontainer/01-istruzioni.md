@@ -1,4 +1,10 @@
-Creazione di un Codespace da un repository GitHub che include un database MySQL, PHP, e Apache, con le cartelle specifiche per le configurazioni, database e pagine web, segui questi passaggi:
+## Creare e configurare un codespace da un repository GitHub
+
+**GitHub Codespaces** offre un ambiente di sviluppo cloud-based direttamente integrato nel tuo flusso di lavoro GitHub. Questo significa che puoi creare un ambiente di sviluppo completo con un semplice clic, senza dover configurare localmente alcun ambiente.
+
+Un codespace è un ambiente di sviluppo personalizzabile e isolato, basato su contenitori Docker, che ti permette di lavorare sul tuo codice direttamente nel browser. È come avere un IDE completo (come Visual Studio Code) nel cloud, preconfigurato con tutti gli strumenti e le dipendenze necessarie per il tuo progetto.
+
+Per la creazione di un Codespace da un repository GitHub che include un database MySQL, PHP, e Apache, con le cartelle specifiche per le configurazioni, database e pagine web, segui questi passaggi:
 
 ### Passaggio 1: Creare la struttura del repository
 
@@ -20,20 +26,18 @@ Crea una cartella chiamata `.devcontainer` nella radice del tuo repository. All'
 
    ```Dockerfile
    # Usa un'immagine di base con PHP, Apache e MySQL
-   FROM mcr.microsoft.com/devcontainers/php:8.0-apache
+   ARG VARIANT=8-bullseye
+   FROM mcr.microsoft.com/vscode/devcontainers/php:0-${VARIANT}
 
-   # Installazione di MySQL
-   RUN apt-get update && apt-get install -y \
-       mysql-server \
-       && rm -rf /var/lib/apt/lists/*
+   # Installazione di MariaDB client
+   RUN apt-get update \
+       && export DEBIAN_FRONTEND=noninteractive \
+       && apt-get install -y mariadb-client \ 
 
-   # Configurazione Apache
-   COPY ./www /var/www/html/
+   # Configurazione Apache MySQL e PHP
    COPY ./etc/apache2 /etc/apache2/
-
-   # Configurazione MySQL
    COPY ./etc/mysql /etc/mysql/
-   COPY ./mysql /var/lib/mysql/
+   COPY ./etc/php/php.ini /usr/local/etc/php/php.ini
 
    # Avvio dei servizi MySQL e Apache all'avvio del container
    CMD service mysql start && apache2ctl -D FOREGROUND
@@ -61,7 +65,7 @@ Crea una cartella chiamata `.devcontainer` nella radice del tuo repository. All'
            }
        },
        "forwardPorts": [
-           80,
+           8787,
            3306
        ],
        "postCreateCommand": "service mysql start && apache2ctl start",
@@ -98,3 +102,24 @@ Una volta che il Codespace è stato avviato:
 - Verifica che i file di configurazione siano correttamente applicati.
 
 Questo setup ti permetterà di avere un ambiente di sviluppo pronto all'uso con MySQL, PHP e Apache configurati come desiderato.
+
+
+### Configurare il codespace:
+
+Una volta creato il codespace, puoi iniziare a lavorare sul tuo codice. Tuttavia, potresti voler personalizzare ulteriormente l'ambiente. Ecco alcune delle cose che puoi fare:
+
+* **Installare estensioni:** Puoi installare le estensioni di Visual Studio Code che preferisci direttamente dal tuo codespace.
+* **Configurare le impostazioni:** Personalizza le impostazioni di Visual Studio Code secondo le tue preferenze.
+* **Aggiungere strumenti:** Se hai bisogno di strumenti specifici, puoi installarli all'interno del codespace.
+* **Configurare il dev container (opzionale):** Se il tuo repository contiene un file `.devcontainer.json`, GitHub utilizzerà questa configurazione per preconfigurare il codespace. Questo è un modo potente per standardizzare l'ambiente di sviluppo per un progetto.
+
+### Vantaggi di utilizzare GitHub Codespaces:
+* **Rapidità di configurazione:** Non è necessario configurare localmente alcun ambiente.
+* **Consistenza:** Tutti i membri del team avranno lo stesso ambiente di sviluppo.
+* **Collaborazione:** È facile condividere codespaces con altri membri del team.
+* **Integrazione con GitHub:** Codespaces è strettamente integrato con GitHub, facilitando il lavoro con i repository.
+
+### Limitazioni:
+* **Costo:** L'utilizzo di Codespaces può comportare costi aggiuntivi, soprattutto per ambienti di sviluppo più grandi o per un utilizzo intensivo.
+* **Dipendenza da una connessione internet:** Hai bisogno di una connessione internet stabile per utilizzare Codespaces.
+

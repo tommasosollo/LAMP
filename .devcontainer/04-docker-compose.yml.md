@@ -6,8 +6,6 @@ Quando si crea un Codespace con Docker Compose, si può utilizzare un file docke
 Ecco un esempio di un file `docker-compose.yml` per un'applicazione web che utilizza PHP, Apache e un database MySQL:
 
 ```yaml
-version: '3.8'
-
 services:
   web:
     image: php:8.0-apache
@@ -39,9 +37,7 @@ volumes:
 
 ### Componenti principali del file `docker-compose.yml`
 
-1. **version**: Specifica la versione del formato di file Docker Compose. Versioni più recenti come `3.8` offrono più funzionalità e supporto per configurazioni avanzate.
-
-2. **services**: Questa sezione definisce i vari container che compongono l'applicazione. Ogni servizio rappresenta un container separato.
+1. **services**: Questa sezione definisce i vari container che compongono l'applicazione. Ogni servizio rappresenta un container separato.
 
    - **web**: Definisce il servizio per il server web Apache con PHP.
      - **image**: Specifica l'immagine Docker da utilizzare. In questo caso, utilizza `php:8.0-apache`.
@@ -56,7 +52,7 @@ volumes:
      - **ports**: Mappa la porta 3306 dell'host sulla porta 3306 del container per consentire l'accesso al database dall'esterno.
      - **volumes**: Utilizza un volume Docker per memorizzare i dati del database.
 
-3. **volumes**: Questa sezione definisce i volumi Docker utilizzati per memorizzare i dati in modo persistente. Nel nostro esempio, `mysql_data` è un volume named che conserva i dati del database MySQL anche quando il container viene riavviato o rimosso.
+2. **volumes**: Questa sezione definisce i volumi Docker utilizzati per memorizzare i dati in modo persistente. Nel nostro esempio, `mysql_data` è un volume named che conserva i dati del database MySQL anche quando il container viene riavviato o rimosso.
 
 ### Comandi utili con Docker Compose
 
@@ -136,7 +132,7 @@ Se stai utilizzando un file docker-compose.yml che contiene ancora il campo vers
 Conclusioni
 Il campo version nel file docker-compose.yml è deprecato nelle nuove specifiche di Docker Compose, e non è più necessario specificarlo. Questo semplifica la configurazione e rende i file Compose più compatibili e portabili tra diverse versioni di Docker.
 
-# --------------
+# Esempio
 
 Quando si crea un Codespace con Docker Compose, si può utilizzare un file `docker-compose.yml` per definire un ambiente di sviluppo che contiene più servizi, come un server web (Apache), un database (MySQL) e altre applicazioni. Questo approccio è utile per replicare ambienti di produzione o per configurare ambienti di sviluppo complessi con facilità.
 
@@ -144,8 +140,6 @@ Quando si crea un Codespace con Docker Compose, si può utilizzare un file `dock
 Di seguito, presentiamo un esempio di un file `docker-compose.yml` che può essere utilizzato in un Codespace GitHub con un setup che include PHP, MySQL e Apache. In questo esempio, sono utilizzate le cartelle specifiche per la configurazione (`etc`), per i database (`mysql`) e per i file web (`www`).
 
 ```yaml
-version: '3.8'
-
 services:
   web:
     image: php:8.0-apache
@@ -226,6 +220,6 @@ Per utilizzare Docker Compose con un Codespace, è necessario configurare anche 
 ### Conclusioni
 Utilizzare Docker Compose con GitHub Codespaces offre un potente strumento per creare ambienti di sviluppo complessi che possono essere configurati in modo rapido e coerente. Definendo servizi come PHP, MySQL e Apache nel file `docker-compose.yml` e integrandoli con `devcontainer.json`, puoi avere un ambiente di sviluppo completo pronto all'uso con un minimo sforzo di configurazione.
 
-# esempi
+# esempio complesso
 
 https://github.com/cytopia/devilbox/blob/master/docker-compose.yml
