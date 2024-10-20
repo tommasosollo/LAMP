@@ -18,7 +18,7 @@
         <input type="date" name="data" required>
         <br>
         <label for="CF">Codice fiscale</label>
-        <input type="text" name="data" pattern="[a-zA-Z0-9]{16}" style="text-transform:uppercase">
+        <input type="text" name="cf" pattern="[a-zA-Z0-9]{16}" style="text-transform:uppercase">
         <br>
         <label for="email">Email*:</label>
         <input type="email" name="email" required>
@@ -46,7 +46,7 @@
         <input type="text" name="username" pattern="[a-zA-Z0-9]{3,}" required>
         <br>
         <label for="password">Password*:</label>
-        <input type="password" name="password" required>
+        <input type="password" name="password" pattern="{8,}" required>
         
         <br>
         <input type="submit" name="submit">
