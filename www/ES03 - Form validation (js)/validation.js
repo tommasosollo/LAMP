@@ -162,7 +162,7 @@ function validateProvincia(elemento) {
 
 function validateUsername(elemento) {
     usernameRegex = /[a-zA-Z0-9]+/;
-    if (usernameRegex.test(elemento.value) && !(elemento.value.includes(inputs[0].value) || elemento.value.includes(inputs[1].value))) {
+    if (usernameRegex.test(elemento.value) && !(elemento.value.includes(inputs[0].value.toLowerCase()) || elemento.value.includes(inputs[1].value.toLowerCase()))) {
         elemento.style.border = '2px solid green';
     } else {
         elemento.style.border = '2px solid red';
