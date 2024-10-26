@@ -105,7 +105,7 @@ function validateEmail(elemento) {
         elemento.style.border = '2px solid green';
     }
 }
-
+/*
 function validateTel(elemento) {
     telRegex = /[0-9]{12}/;
     if (!telRegex.test(elemento.value)) {
@@ -178,3 +178,4 @@ function validatePassword(elemento) {
     }
 }
 
+*/
