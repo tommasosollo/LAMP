@@ -105,7 +105,7 @@ function validateEmail(elemento) {
         elemento.style.border = '2px solid green';
     }
 }
-/*
+
 function validateTel(elemento) {
     telRegex = /[0-9]{12}/;
     if (!telRegex.test(elemento.value)) {
@@ -116,7 +116,7 @@ function validateTel(elemento) {
 }
 
 function validateVia(elemento) {
-    viaRegex = /^[a-zA-Z]+$/;
+    viaRegex = /[a-zA-Z]+/;
     if (!viaRegex.test(elemento.value)) {
         elemento.style.border = '2px solid red';
     } else {
@@ -125,7 +125,7 @@ function validateVia(elemento) {
 }
 
 function validateNCivico(elemento) {
-    ncivicoRegex = /^[0-9]+$/;
+    ncivicoRegex = /[0-9]+/;
     if (!ncivicoRegex.test(elemento.value)) {
         elemento.style.border = '2px solid red';
     } else {
@@ -134,7 +134,7 @@ function validateNCivico(elemento) {
 }
 
 function validateCAP(elemento) {
-    capRegex = /^[0-9]{5}$/;
+    capRegex = /[0-9]{5}/;
     if (!capRegex.test(elemento.value)) {
         elemento.style.border = '2px solid red';
     } else {
@@ -143,7 +143,7 @@ function validateCAP(elemento) {
 }
 
 function validateComune(elemento) {
-    comuneRegex = /^[a-zA-Z]+$/;
+    comuneRegex = /[a-zA-Z]+/;
     if (!comuneRegex.test(elemento.value)) {
         elemento.style.border = '2px solid red';
     } else {
@@ -152,7 +152,7 @@ function validateComune(elemento) {
 }
 
 function validateProvincia(elemento) {
-    provinciaRegex = /^[a-zA-Z]{2}$/;
+    provinciaRegex = /[a-zA-Z]{2}/;
     if (!provinciaRegex.test(elemento.value)) {
         elemento.style.border = '2px solid red';
     } else {
@@ -161,8 +161,8 @@ function validateProvincia(elemento) {
 }
 
 function validateUsername(elemento) {
-    usernameRegex = /^[a-zA-Z0-9]+$/;
-    if (usernameRegex.test(elemento.value) && !(elemento.value.includes(inputs[0]) || elemento.value.includes(input[1]))) {
+    usernameRegex = /[a-zA-Z0-9]+/;
+    if (usernameRegex.test(elemento.value) && !(elemento.value.includes(inputs[0].value) || elemento.value.includes(inputs[1].value))) {
         elemento.style.border = '2px solid green';
     } else {
         elemento.style.border = '2px solid red';
@@ -170,12 +170,10 @@ function validateUsername(elemento) {
 }
 
 function validatePassword(elemento) {
-    passwordRegex = /{5}/;
+    passwordRegex = /.*/;
     if (!passwordRegex.test(elemento.value)) {
         elemento.style.border = '2px solid red';
     } else {
         elemento.style.border = '2px solid green';
     }
 }
-
-*/
