@@ -1,0 +1,5 @@
+DROP IF EXISTS DATABASE biblioteca
+CREATE DATABASE IF NOT EXISTS videoteca
+USE biblioteca
+
+
