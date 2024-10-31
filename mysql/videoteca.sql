@@ -1,5 +1,7 @@
-DROP IF EXISTS DATABASE biblioteca
+--Crea Database
+DROP IF EXISTS DATABASE videoteca
 CREATE DATABASE IF NOT EXISTS videoteca
-USE biblioteca
+USE videoteca
 
+--Crea Tabella 
 
