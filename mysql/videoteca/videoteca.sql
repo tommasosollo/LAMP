@@ -1,7 +1,27 @@
 --Crea Database
-DROP IF EXISTS DATABASE videoteca
-CREATE DATABASE IF NOT EXISTS videoteca
-USE videoteca
+DROP IF EXISTS DATABASE videoteca;
+CREATE DATABASE IF NOT EXISTS videoteca;
+USE videoteca;
+
+--Crea Tabella regista
+CREATE TABLE IF NOT EXISTS regista (
+    ID_Regista INT AUTO_INCREMENT PRIMARY KEY,
+    Nome VARCHAR(30) NOT NULL,
+    Cognome VARCHAR(30) NOT NULL
+);
+
+--Crea Tabella produttore
+CREATE TABLE IF NOT EXISTS produttore (
+    ID_Produttore INT AUTO_INCREMENT PRIMARY KEY,
+    Nome VARCHAR(30) NOT NULL
+);
+
+
+--Crea Tabella categoria
+CREATE TABLE IF NOT EXISTS categoria (
+    ID_Categoria INT AUTO_INCREMENT PRIMARY KEY,
+    Nome VARCHAR(30) NOT NULL
+);
 
 --Crea Tabella film
 CREATE TABLE IF NOT EXISTS film (
@@ -15,26 +35,15 @@ CREATE TABLE IF NOT EXISTS film (
     FOREIGN KEY (ID_Regista) REFERENCES regista(ID_Regista),
     FOREIGN KEY (ID_Produttore) REFERENCES produttore(ID_Produttore),
     FOREIGN KEY (ID_Categoria) REFERENCES categoria(ID_Categoria)
-)
+);
 
---Crea Tabella regista
-CREATE TABLE IF NOT EXISTS regista (
-    ID_Regista INT AUTO_INCREMENT PRIMARY KEY,
-    Nome VARCHAR(30) NOT NULL,
-    Cognome VARCHAR(30) NOT NULL
-)
 
---Crea Tabella produttore
-CREATE TABLE IF NOT EXISTS produttore (
-    ID_Produttore INT AUTO_INCREMENT PRIMARY KEY,
-    Nome VARCHAR(30) NOT NULL,
-)
-
---Crea Tabella categoria
-CREATE TABLE IF NOT EXISTS categoria (
-    ID_Categoria INT AUTO_INCREMENT PRIMARY KEY,
-    Nome VARCHAR(30) NOT NULL
-)
+--Crea tabella premio
+CREATE TABLE IF NOT EXISTS premio (
+    ID_Premio INT AUTO_INCREMENT PRIMARY KEY,
+    Nome VARCHAR(50) NOT NULL,
+    Ente VARCHAR(50)
+);
 
 --Crea tabella premi_vinti
 CREATE TABLE IF NOT EXISTS premi_vinti (
@@ -45,14 +54,14 @@ CREATE TABLE IF NOT EXISTS premi_vinti (
     ID_Premio INT NOT NULL,
     FOREIGN KEY (ID_Film) REFERENCES film(ID_Film),
     FOREIGN KEY (ID_Premio) REFERENCES premio(ID_Premio)
-)
+);
 
---Crea tabella premio
-CREATE TABLE IF NOT EXISTS premio (
-    ID_Premio INT AUTO_INCREMENT PRIMARY KEY,
-    Nome VARCHAR(50) NOT NULL,
-    Ente VARCHAR(50)
-)
+--Crea tabella cliente
+CREATE TABLE IF NOT EXISTS cliente (
+    ID_Cliente INT AUTO_INCREMENT PRIMARY KEY,
+    Nome VARCHAR(30) NOT NULL,
+    Cognome VARCHAR(30) NOT NULL
+);
 
 --Crea tabella acquisto
  CREATE TABLE IF NOT EXISTS acquisto (
@@ -61,14 +70,7 @@ CREATE TABLE IF NOT EXISTS premio (
     ID_Cliente INT NOT NULL,
     FOREIGN KEY (ID_Film) REFERENCES film(ID_Film),
     FOREIGN KEY (ID_Cliente) REFERENCES cliente(ID_Cliente)
-)
-
---Crea tabella cliente
-CREATE TABLE IF NOT EXISTS cliente (
-    ID_Cliente INT AUTO_INCREMENT PRIMARY KEY,
-    Nome VARCHAR(30) NOT NULL,
-    Cognome VARCHAR(30) NOT NULL,
-)
+);
 
 --Crea tabella fattura
  CREATE TABLE IF NOT EXISTS fattura (
@@ -77,7 +79,7 @@ CREATE TABLE IF NOT EXISTS cliente (
     Prezzo FLOAT NOT NULL,
     ID_Acquisto INT NOT NULL,
     FOREIGN KEY (ID_Acquisto) REFERENCES acquisto(ID_Acquisto)
-)
+);
 
 
 --******  INSERIMENTO DATI  ******
@@ -102,9 +104,9 @@ CREATE TABLE IF NOT EXISTS cliente (
  
  --Inserimento film
  INSERT INTO film (Titolo, Durata, Anno_Uscita, ID_Regista, ID_Produttore, ID_Categoria) VALUES
- ('Il Mare di Capri', '1h 35m', 1993, 1, 1, 1),
- ('Il Ritorno del Re', '2h 15m', 1985, 2, 2, 2),
- ('Il Pianista', '2h 10m', 1973, 3, 3, 3);
+ ('Il Mare di Capri', '1:35', 1993, 1, 1, 1),
+ ('Il Ritorno del Re', '2:15', 1985, 2, 2, 2),
+ ('Il Pianista', '2:10', 1973, 3, 3, 3);
  
  --Inserimento premi
  INSERT INTO premio (Nome, Ente) VALUES
