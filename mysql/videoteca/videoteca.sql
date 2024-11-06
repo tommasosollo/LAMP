@@ -32,9 +32,9 @@ CREATE TABLE IF NOT EXISTS film (
     ID_Regista INT NOT NULL,
     ID_Produttore INT NOT NULL,
     ID_Categoria INT NOT NULL,
-    FOREIGN KEY (ID_Regista) REFERENCES regista(ID_Regista),
-    FOREIGN KEY (ID_Produttore) REFERENCES produttore(ID_Produttore),
-    FOREIGN KEY (ID_Categoria) REFERENCES categoria(ID_Categoria)
+    FOREIGN KEY (ID_Regista) REFERENCES regista(ID_Regista) ON DELETE SET NULL ON UPDATE CASCADE,
+    FOREIGN KEY (ID_Produttore) REFERENCES produttore(ID_Produttore) ON DELETE SET NULL ON UPDATE CASCADE,
+    FOREIGN KEY (ID_Categoria) REFERENCES categoria(ID_Categoria) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 
@@ -52,8 +52,8 @@ CREATE TABLE IF NOT EXISTS premi_vinti (
     Anno_Premio YEAR NOT NULL,
     ID_Film INT NOT NULL,
     ID_Premio INT NOT NULL,
-    FOREIGN KEY (ID_Film) REFERENCES film(ID_Film),
-    FOREIGN KEY (ID_Premio) REFERENCES premio(ID_Premio)
+    FOREIGN KEY (ID_Film) REFERENCES film(ID_Film) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (ID_Premio) REFERENCES premio(ID_Premio) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 --Crea tabella cliente
@@ -68,8 +68,8 @@ CREATE TABLE IF NOT EXISTS cliente (
     ID_Acquisto INT AUTO_INCREMENT PRIMARY KEY,
     ID_Film INT NOT NULL,
     ID_Cliente INT NOT NULL,
-    FOREIGN KEY (ID_Film) REFERENCES film(ID_Film),
-    FOREIGN KEY (ID_Cliente) REFERENCES cliente(ID_Cliente)
+    FOREIGN KEY (ID_Film) REFERENCES film(ID_Film) ON DELETE SET NULL ON UPDATE CASCADE,
+    FOREIGN KEY (ID_Cliente) REFERENCES cliente(ID_Cliente) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 --Crea tabella fattura
@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS cliente (
     Data_Pagamento DATE NOT NULL,
     Prezzo FLOAT NOT NULL,
     ID_Acquisto INT NOT NULL,
-    FOREIGN KEY (ID_Acquisto) REFERENCES acquisto(ID_Acquisto)
+    FOREIGN KEY (ID_Acquisto) REFERENCES acquisto(ID_Acquisto) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 
