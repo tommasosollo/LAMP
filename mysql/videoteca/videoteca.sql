@@ -1,7 +1,7 @@
 --mysqldump -u root videoteca > videoteca_BK.sql
 
 --Crea Database
-DROP DATABASE IF EXISTS videoteca;
+--DROP DATABASE IF EXISTS videoteca;
 CREATE DATABASE IF NOT EXISTS videoteca;
 USE videoteca;
 
