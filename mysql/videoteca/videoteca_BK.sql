@@ -16,6 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `Attori`
+--
+
+DROP TABLE IF EXISTS `Attori`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Attori` (
+  `ID_Attore` int NOT NULL,
+  `ID_Film` int NOT NULL,
+  KEY `ID_Film` (`ID_Film`),
+  KEY `ID_Attore` (`ID_Attore`),
+  CONSTRAINT `Attori_ibfk_1` FOREIGN KEY (`ID_Film`) REFERENCES `film` (`ID_Film`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Attori_ibfk_2` FOREIGN KEY (`ID_Attore`) REFERENCES `attore` (`ID_Attore`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Attori`
+--
+
+LOCK TABLES `Attori` WRITE;
+/*!40000 ALTER TABLE `Attori` DISABLE KEYS */;
+INSERT INTO `Attori` VALUES (1,1),(2,1),(3,2),(4,2),(5,3),(6,3);
+/*!40000 ALTER TABLE `Attori` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `acquisto`
 --
 
@@ -24,13 +51,15 @@ DROP TABLE IF EXISTS `acquisto`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `acquisto` (
   `ID_Acquisto` int NOT NULL AUTO_INCREMENT,
+  `Data_Pagamento` date NOT NULL,
+  `Prezzo` float NOT NULL,
   `ID_Film` int NOT NULL,
   `ID_Cliente` int NOT NULL,
   PRIMARY KEY (`ID_Acquisto`),
   KEY `ID_Film` (`ID_Film`),
   KEY `ID_Cliente` (`ID_Cliente`),
-  CONSTRAINT `acquisto_ibfk_1` FOREIGN KEY (`ID_Film`) REFERENCES `film` (`ID_Film`),
-  CONSTRAINT `acquisto_ibfk_2` FOREIGN KEY (`ID_Cliente`) REFERENCES `cliente` (`ID_Cliente`)
+  CONSTRAINT `acquisto_ibfk_1` FOREIGN KEY (`ID_Film`) REFERENCES `film` (`ID_Film`) ON UPDATE CASCADE,
+  CONSTRAINT `acquisto_ibfk_2` FOREIGN KEY (`ID_Cliente`) REFERENCES `cliente` (`ID_Cliente`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -40,8 +69,33 @@ CREATE TABLE `acquisto` (
 
 LOCK TABLES `acquisto` WRITE;
 /*!40000 ALTER TABLE `acquisto` DISABLE KEYS */;
-INSERT INTO `acquisto` VALUES (1,1,1),(2,2,2),(3,3,3);
+INSERT INTO `acquisto` VALUES (1,'2024-05-27',100,1,1),(2,'2024-05-28',150,2,2),(3,'2024-05-28',200,3,3);
 /*!40000 ALTER TABLE `acquisto` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `attore`
+--
+
+DROP TABLE IF EXISTS `attore`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `attore` (
+  `ID_Attore` int NOT NULL AUTO_INCREMENT,
+  `Nome` varchar(50) NOT NULL,
+  `Cognome` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`ID_Attore`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `attore`
+--
+
+LOCK TABLES `attore` WRITE;
+/*!40000 ALTER TABLE `attore` DISABLE KEYS */;
+INSERT INTO `attore` VALUES (1,'Zoe','Saldana'),(2,'Sam','Worthington'),(3,'Kate','Winslet'),(4,'Leonardo','DiCaprio'),(5,'Robert','Downey Jr.'),(6,'Ben','Kingsley');
+/*!40000 ALTER TABLE `attore` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -64,7 +118,7 @@ CREATE TABLE `categoria` (
 
 LOCK TABLES `categoria` WRITE;
 /*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
-INSERT INTO `categoria` VALUES (1,'Commedia'),(2,'Avventura'),(3,'Drammatico');
+INSERT INTO `categoria` VALUES (1,'Fantascienza'),(2,'Azione'),(3,'Drammatico');
 /*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -94,34 +148,6 @@ INSERT INTO `cliente` VALUES (1,'Mario','Rossi'),(2,'Giorgio','Bianchi'),(3,'Lui
 UNLOCK TABLES;
 
 --
--- Table structure for table `fattura`
---
-
-DROP TABLE IF EXISTS `fattura`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `fattura` (
-  `ID_Fattura` int NOT NULL AUTO_INCREMENT,
-  `Data_Pagamento` date NOT NULL,
-  `Prezzo` float NOT NULL,
-  `ID_Acquisto` int NOT NULL,
-  PRIMARY KEY (`ID_Fattura`),
-  KEY `ID_Acquisto` (`ID_Acquisto`),
-  CONSTRAINT `fattura_ibfk_1` FOREIGN KEY (`ID_Acquisto`) REFERENCES `acquisto` (`ID_Acquisto`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `fattura`
---
-
-LOCK TABLES `fattura` WRITE;
-/*!40000 ALTER TABLE `fattura` DISABLE KEYS */;
-INSERT INTO `fattura` VALUES (1,'2022-01-01',100,1),(2,'2022-02-15',150,2),(3,'2022-03-30',200,3);
-/*!40000 ALTER TABLE `fattura` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `film`
 --
 
@@ -140,9 +166,9 @@ CREATE TABLE `film` (
   KEY `ID_Regista` (`ID_Regista`),
   KEY `ID_Produttore` (`ID_Produttore`),
   KEY `ID_Categoria` (`ID_Categoria`),
-  CONSTRAINT `film_ibfk_1` FOREIGN KEY (`ID_Regista`) REFERENCES `regista` (`ID_Regista`),
-  CONSTRAINT `film_ibfk_2` FOREIGN KEY (`ID_Produttore`) REFERENCES `produttore` (`ID_Produttore`),
-  CONSTRAINT `film_ibfk_3` FOREIGN KEY (`ID_Categoria`) REFERENCES `categoria` (`ID_Categoria`)
+  CONSTRAINT `film_ibfk_1` FOREIGN KEY (`ID_Regista`) REFERENCES `regista` (`ID_Regista`) ON UPDATE CASCADE,
+  CONSTRAINT `film_ibfk_2` FOREIGN KEY (`ID_Produttore`) REFERENCES `produttore` (`ID_Produttore`) ON UPDATE CASCADE,
+  CONSTRAINT `film_ibfk_3` FOREIGN KEY (`ID_Categoria`) REFERENCES `categoria` (`ID_Categoria`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -152,64 +178,8 @@ CREATE TABLE `film` (
 
 LOCK TABLES `film` WRITE;
 /*!40000 ALTER TABLE `film` DISABLE KEYS */;
-INSERT INTO `film` VALUES (1,'Il Mare di Capri','01:35:00',1993,1,1,1),(2,'Il Ritorno del Re','02:15:00',1985,2,2,2),(3,'Il Pianista','02:10:00',1973,3,3,3);
+INSERT INTO `film` VALUES (1,'Avatar','02:42:00',2009,1,1,1),(2,'Titanic','03:15:00',1997,1,2,3),(3,'Ironman 3','02:10:00',2013,2,3,2);
 /*!40000 ALTER TABLE `film` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `premi_vinti`
---
-
-DROP TABLE IF EXISTS `premi_vinti`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `premi_vinti` (
-  `ID_Premio_Vinto` int NOT NULL AUTO_INCREMENT,
-  `Titolo` varchar(100) NOT NULL,
-  `Anno_Premio` year NOT NULL,
-  `ID_Film` int NOT NULL,
-  `ID_Premio` int NOT NULL,
-  PRIMARY KEY (`ID_Premio_Vinto`),
-  KEY `ID_Film` (`ID_Film`),
-  KEY `ID_Premio` (`ID_Premio`),
-  CONSTRAINT `premi_vinti_ibfk_1` FOREIGN KEY (`ID_Film`) REFERENCES `film` (`ID_Film`),
-  CONSTRAINT `premi_vinti_ibfk_2` FOREIGN KEY (`ID_Premio`) REFERENCES `premio` (`ID_Premio`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `premi_vinti`
---
-
-LOCK TABLES `premi_vinti` WRITE;
-/*!40000 ALTER TABLE `premi_vinti` DISABLE KEYS */;
-INSERT INTO `premi_vinti` VALUES (1,'Il Mare di Capri',1993,1,1),(2,'Il Ritorno del Re',1985,2,2),(3,'Il Pianista',1973,3,3);
-/*!40000 ALTER TABLE `premi_vinti` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `premio`
---
-
-DROP TABLE IF EXISTS `premio`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `premio` (
-  `ID_Premio` int NOT NULL AUTO_INCREMENT,
-  `Nome` varchar(50) NOT NULL,
-  `Ente` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`ID_Premio`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `premio`
---
-
-LOCK TABLES `premio` WRITE;
-/*!40000 ALTER TABLE `premio` DISABLE KEYS */;
-INSERT INTO `premio` VALUES (1,'Oscar','American Film Institute'),(2,'Prime','British Film Institute'),(3,'Oscar','Academy of Motion Picture Arts and Sciences');
-/*!40000 ALTER TABLE `premio` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -222,6 +192,7 @@ DROP TABLE IF EXISTS `produttore`;
 CREATE TABLE `produttore` (
   `ID_Produttore` int NOT NULL AUTO_INCREMENT,
   `Nome` varchar(30) NOT NULL,
+  `Cognome` varchar(30) NOT NULL,
   PRIMARY KEY (`ID_Produttore`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -232,7 +203,7 @@ CREATE TABLE `produttore` (
 
 LOCK TABLES `produttore` WRITE;
 /*!40000 ALTER TABLE `produttore` DISABLE KEYS */;
-INSERT INTO `produttore` VALUES (1,'Maria Stella'),(2,'Antonio Russo'),(3,'Andrea Borghese');
+INSERT INTO `produttore` VALUES (1,'James','Cameron'),(2,'Jon','Landau'),(3,'Stan','Lee');
 /*!40000 ALTER TABLE `produttore` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -257,7 +228,7 @@ CREATE TABLE `regista` (
 
 LOCK TABLES `regista` WRITE;
 /*!40000 ALTER TABLE `regista` DISABLE KEYS */;
-INSERT INTO `regista` VALUES (1,'Giuseppe','Boccaccio'),(2,'Guido','Borgogno'),(3,'Enrico','Bellini');
+INSERT INTO `regista` VALUES (1,'James','Cameron'),(2,'Shane','Black'),(3,'Enrico','Bellini');
 /*!40000 ALTER TABLE `regista` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -270,4 +241,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-02 12:05:58
+-- Dump completed on 2024-11-07  8:41:27

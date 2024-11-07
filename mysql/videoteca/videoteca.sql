@@ -1,5 +1,7 @@
+--mysqldump -u root videoteca > videoteca_BK.sql
+
 --Crea Database
-DROP IF EXISTS DATABASE videoteca;
+DROP DATABASE IF EXISTS videoteca;
 CREATE DATABASE IF NOT EXISTS videoteca;
 USE videoteca;
 
@@ -13,7 +15,8 @@ CREATE TABLE IF NOT EXISTS regista (
 --Crea Tabella produttore
 CREATE TABLE IF NOT EXISTS produttore (
     ID_Produttore INT AUTO_INCREMENT PRIMARY KEY,
-    Nome VARCHAR(30) NOT NULL
+    Nome VARCHAR(30) NOT NULL,
+    Cognome VARCHAR(30) NOT NULL
 );
 
 
@@ -32,28 +35,25 @@ CREATE TABLE IF NOT EXISTS film (
     ID_Regista INT NOT NULL,
     ID_Produttore INT NOT NULL,
     ID_Categoria INT NOT NULL,
-    FOREIGN KEY (ID_Regista) REFERENCES regista(ID_Regista) ON DELETE SET NULL ON UPDATE CASCADE,
-    FOREIGN KEY (ID_Produttore) REFERENCES produttore(ID_Produttore) ON DELETE SET NULL ON UPDATE CASCADE,
-    FOREIGN KEY (ID_Categoria) REFERENCES categoria(ID_Categoria) ON DELETE SET NULL ON UPDATE CASCADE
+    FOREIGN KEY (ID_Regista) REFERENCES regista(ID_Regista) ON DELETE NO ACTION ON UPDATE CASCADE,
+    FOREIGN KEY (ID_Produttore) REFERENCES produttore(ID_Produttore) ON DELETE NO ACTION ON UPDATE CASCADE,
+    FOREIGN KEY (ID_Categoria) REFERENCES categoria(ID_Categoria) ON DELETE NO ACTION ON UPDATE CASCADE
 );
 
 
---Crea tabella premio
-CREATE TABLE IF NOT EXISTS premio (
-    ID_Premio INT AUTO_INCREMENT PRIMARY KEY,
+--Crea tabella attore
+CREATE TABLE IF NOT EXISTS attore (
+    ID_Attore INT AUTO_INCREMENT PRIMARY KEY,
     Nome VARCHAR(50) NOT NULL,
-    Ente VARCHAR(50)
+    Cognome VARCHAR(50)
 );
 
---Crea tabella premi_vinti
-CREATE TABLE IF NOT EXISTS premi_vinti (
-    ID_Premio_Vinto INT AUTO_INCREMENT PRIMARY KEY,
-    Titolo VARCHAR(100) NOT NULL,
-    Anno_Premio YEAR NOT NULL,
+--Crea tabella attori
+CREATE TABLE IF NOT EXISTS Attori (
+    ID_Attore INT NOT NULL,
     ID_Film INT NOT NULL,
-    ID_Premio INT NOT NULL,
     FOREIGN KEY (ID_Film) REFERENCES film(ID_Film) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (ID_Premio) REFERENCES premio(ID_Premio) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY (ID_Attore) REFERENCES attore(ID_Attore) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 --Crea tabella cliente
@@ -66,19 +66,12 @@ CREATE TABLE IF NOT EXISTS cliente (
 --Crea tabella acquisto
  CREATE TABLE IF NOT EXISTS acquisto (
     ID_Acquisto INT AUTO_INCREMENT PRIMARY KEY,
-    ID_Film INT NOT NULL,
-    ID_Cliente INT NOT NULL,
-    FOREIGN KEY (ID_Film) REFERENCES film(ID_Film) ON DELETE SET NULL ON UPDATE CASCADE,
-    FOREIGN KEY (ID_Cliente) REFERENCES cliente(ID_Cliente) ON DELETE SET NULL ON UPDATE CASCADE
-);
-
---Crea tabella fattura
- CREATE TABLE IF NOT EXISTS fattura (
-    ID_Fattura INT AUTO_INCREMENT PRIMARY KEY,
     Data_Pagamento DATE NOT NULL,
     Prezzo FLOAT NOT NULL,
-    ID_Acquisto INT NOT NULL,
-    FOREIGN KEY (ID_Acquisto) REFERENCES acquisto(ID_Acquisto) ON DELETE SET NULL ON UPDATE CASCADE
+    ID_Film INT NOT NULL,
+    ID_Cliente INT NOT NULL,
+    FOREIGN KEY (ID_Film) REFERENCES film(ID_Film) ON DELETE NO ACTION ON UPDATE CASCADE,
+    FOREIGN KEY (ID_Cliente) REFERENCES cliente(ID_Cliente) ON DELETE NO ACTION ON UPDATE CASCADE
 );
 
 
@@ -86,39 +79,45 @@ CREATE TABLE IF NOT EXISTS cliente (
 
 --Inserimento registi
  INSERT INTO regista (Nome, Cognome) VALUES
- ('Giuseppe', 'Boccaccio'),
- ('Guido', 'Borgogno'),
+ ('James', 'Cameron'),
+ ('Shane', 'Black'),
  ('Enrico', 'Bellini');
  
  --Inserimento produttori
- INSERT INTO produttore (Nome) VALUES
- ('Maria Stella'),
- ('Antonio Russo'),
- ('Andrea Borghese');
+ INSERT INTO produttore (Nome, Cognome) VALUES
+ ('James', 'Cameron'),
+ ('Jon', 'Landau'),
+ ('Stan', 'Lee');
  
  --Inserimento categorie
  INSERT INTO categoria (Nome) VALUES
- ('Commedia'),
- ('Avventura'),
+ ('Fantascienza'),
+ ('Azione'),
  ('Drammatico');
  
  --Inserimento film
  INSERT INTO film (Titolo, Durata, Anno_Uscita, ID_Regista, ID_Produttore, ID_Categoria) VALUES
- ('Il Mare di Capri', '1:35', 1993, 1, 1, 1),
- ('Il Ritorno del Re', '2:15', 1985, 2, 2, 2),
- ('Il Pianista', '2:10', 1973, 3, 3, 3);
+ ('Avatar', '2:42', 2009, 1, 1, 1),
+ ('Titanic', '3:15', 1997, 1, 2, 3),
+ ('Ironman 3', '2:10', 2013, 2, 3, 2);
  
  --Inserimento premi
- INSERT INTO premio (Nome, Ente) VALUES
- ('Oscar', 'American Film Institute'),
- ('Prime', 'British Film Institute'),
- ('Oscar', 'Academy of Motion Picture Arts and Sciences');
+ INSERT INTO attore (Nome, Cognome) VALUES
+ ('Zoe', 'Saldana'),
+ ('Sam', 'Worthington'),
+ ('Kate', 'Winslet'),
+ ('Leonardo','DiCaprio'),
+ ('Robert', 'Downey Jr.'),
+ ('Ben', 'Kingsley');
  
- --Inserimento premi vinti
- INSERT INTO premi_vinti (Titolo, Anno_Premio, ID_Film, ID_Premio) VALUES
- ('Il Mare di Capri', 1993, 1, 1),
- ('Il Ritorno del Re', 1985, 2, 2),
- ('Il Pianista', 1973, 3, 3);
+ --Inserimento attori
+ INSERT INTO Attori (ID_Attore, ID_Film) VALUES
+ (1, 1),
+ (2, 1),
+ (3, 2),
+ (4, 2),
+ (5, 3),
+ (6, 3);
 
  --Inserimento clienti
  INSERT INTO cliente (Nome, Cognome) VALUES
@@ -127,14 +126,12 @@ CREATE TABLE IF NOT EXISTS cliente (
  ('Luigi', 'Verdi');
  
  --Inserimento acquisti
- INSERT INTO acquisto (ID_Film, ID_Cliente) VALUES
- (1, 1),
- (2, 2),
- (3, 3);
+ INSERT INTO acquisto (ID_Film, ID_Cliente, Prezzo, Data_Pagamento) VALUES
+ (1, 1, 100, '2024-5-27'),
+ (2, 2, 150, '2024-5-28'),
+ (3, 3, 200, '2024-5-28');
  
- --Inserimento fatture
- INSERT INTO fattura (Data_Pagamento, Prezzo, ID_Acquisto) VALUES
- ('2022-01-01', 100, 1),
- ('2022-02-15', 150, 2),
- ('2022-03-30', 200, 3);
+
+ 
+
  
