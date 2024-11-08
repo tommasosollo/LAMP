@@ -2,18 +2,18 @@
 
 --Crea Database
 --DROP DATABASE IF EXISTS videoteca;
-CREATE DATABASE IF NOT EXISTS videoteca;
+--CREATE DATABASE IF NOT EXISTS videoteca;
 USE videoteca;
 
 --Crea Tabella regista
-CREATE TABLE IF NOT EXISTS regista (
+CREATE TABLE IF NOT EXISTS Regista (
     ID_Regista INT AUTO_INCREMENT PRIMARY KEY,
     Nome VARCHAR(30) NOT NULL,
     Cognome VARCHAR(30) NOT NULL
 );
 
 --Crea Tabella produttore
-CREATE TABLE IF NOT EXISTS produttore (
+CREATE TABLE IF NOT EXISTS Produttore (
     ID_Produttore INT AUTO_INCREMENT PRIMARY KEY,
     Nome VARCHAR(30) NOT NULL,
     Cognome VARCHAR(30) NOT NULL
@@ -21,13 +21,13 @@ CREATE TABLE IF NOT EXISTS produttore (
 
 
 --Crea Tabella categoria
-CREATE TABLE IF NOT EXISTS categoria (
+CREATE TABLE IF NOT EXISTS Categoria (
     ID_Categoria INT AUTO_INCREMENT PRIMARY KEY,
     Nome VARCHAR(30) NOT NULL
 );
 
 --Crea Tabella film
-CREATE TABLE IF NOT EXISTS film (
+CREATE TABLE IF NOT EXISTS Film (
     ID_Film INT AUTO_INCREMENT PRIMARY KEY,
     Titolo VARCHAR(100) NOT NULL,
     Durata TIME,
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS film (
 
 
 --Crea tabella attore
-CREATE TABLE IF NOT EXISTS attore (
+CREATE TABLE IF NOT EXISTS Attore (
     ID_Attore INT AUTO_INCREMENT PRIMARY KEY,
     Nome VARCHAR(50) NOT NULL,
     Cognome VARCHAR(50)
@@ -57,14 +57,14 @@ CREATE TABLE IF NOT EXISTS Attori (
 );
 
 --Crea tabella cliente
-CREATE TABLE IF NOT EXISTS cliente (
+CREATE TABLE IF NOT EXISTS Cliente (
     ID_Cliente INT AUTO_INCREMENT PRIMARY KEY,
     Nome VARCHAR(30) NOT NULL,
     Cognome VARCHAR(30) NOT NULL
 );
 
 --Crea tabella acquisto
- CREATE TABLE IF NOT EXISTS acquisto (
+ CREATE TABLE IF NOT EXISTS Acquisto (
     ID_Acquisto INT AUTO_INCREMENT PRIMARY KEY,
     Data_Pagamento DATE NOT NULL,
     Prezzo FLOAT NOT NULL,
@@ -78,31 +78,31 @@ CREATE TABLE IF NOT EXISTS cliente (
 --******  INSERIMENTO DATI  ******
 
 --Inserimento registi
- INSERT INTO regista (Nome, Cognome) VALUES
+ INSERT INTO Regista (Nome, Cognome) VALUES
  ('James', 'Cameron'),
  ('Shane', 'Black'),
  ('Enrico', 'Bellini');
  
  --Inserimento produttori
- INSERT INTO produttore (Nome, Cognome) VALUES
+ INSERT INTO Produttore (Nome, Cognome) VALUES
  ('James', 'Cameron'),
  ('Jon', 'Landau'),
  ('Stan', 'Lee');
  
  --Inserimento categorie
- INSERT INTO categoria (Nome) VALUES
+ INSERT INTO Categoria (Nome) VALUES
  ('Fantascienza'),
  ('Azione'),
  ('Drammatico');
  
  --Inserimento film
- INSERT INTO film (Titolo, Durata, Anno_Uscita, ID_Regista, ID_Produttore, ID_Categoria) VALUES
+ INSERT INTO Film (Titolo, Durata, Anno_Uscita, ID_Regista, ID_Produttore, ID_Categoria) VALUES
  ('Avatar', '2:42', 2009, 1, 1, 1),
  ('Titanic', '3:15', 1997, 1, 2, 3),
  ('Ironman 3', '2:10', 2013, 2, 3, 2);
  
  --Inserimento premi
- INSERT INTO attore (Nome, Cognome) VALUES
+ INSERT INTO Attore (Nome, Cognome) VALUES
  ('Zoe', 'Saldana'),
  ('Sam', 'Worthington'),
  ('Kate', 'Winslet'),
@@ -120,13 +120,13 @@ CREATE TABLE IF NOT EXISTS cliente (
  (6, 3);
 
  --Inserimento clienti
- INSERT INTO cliente (Nome, Cognome) VALUES
+ INSERT INTO Cliente (Nome, Cognome) VALUES
  ('Mario', 'Rossi'),
  ('Giorgio', 'Bianchi'),
  ('Luigi', 'Verdi');
  
  --Inserimento acquisti
- INSERT INTO acquisto (ID_Film, ID_Cliente, Prezzo, Data_Pagamento) VALUES
+ INSERT INTO Acquisto (ID_Film, ID_Cliente, Prezzo, Data_Pagamento) VALUES
  (1, 1, 100, '2024-5-27'),
  (2, 2, 150, '2024-5-28'),
  (3, 3, 200, '2024-5-28');
