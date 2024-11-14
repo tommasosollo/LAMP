@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS Film(
     ID_Film INT AUTO_INCREMENT PRIMARY KEY,
     Titolo VARCHAR(100) NOT NULL,
     Anno_Uscita YEAR NOT NULL,
-    Durata TIMESTAMP NOT NULL,
+    Durata INT NOT NULL,
     ID_Regista INT NOT NULL,
     ID_Genere INT NOT NULL,
     FOREIGN KEY (ID_Regista) REFERENCES Registi(ID_Regista) ON DELETE NO ACTION ON UPDATE CASCADE,
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS Stati_Pagamenti (
 
 CREATE TABLE IF NOT EXISTS Pagamenti (
     ID_Pagamento INT AUTO_INCREMENT PRIMARY KEY,
-    Data_Pagamento DATE NOT NULL,
+    Data_Pagamento DATE,
     Prezzo REAL NOT NULL,
     ID_Ricevuta INT NOT NULL,
     Stato_Pagamento INT NOT NULL,
@@ -67,9 +67,9 @@ INSERT INTO Generi (Nome) VALUES
     ('Drammatico');
 
 INSERT INTO Film (Titolo, Durata, Anno_Uscita, ID_Regista, ID_Genere) VALUES
-    ('Avatar', '2:42', 2009, 1, 1),
-    ('Titanic', '3:15', 1997, 1, 3),
-    ('Ironman 3', '2:10', 2013, 2, 2);
+    ('Avatar', 162, 2009, 1, 1),
+    ('Titanic', 195, 1997, 1, 3),
+    ('Ironman 3', 130, 2013, 2, 2);
 
 INSERT INTO Clienti (Nome, Cognome, Email) VALUES
     ('Mario', 'Rossi', 'mario.rossi@gmail.com'),
@@ -89,3 +89,8 @@ INSERT INTO Pagamenti (Data_Pagamento, Prezzo, ID_Ricevuta, Stato_Pagamento) VAL
     ('2024-10-10', 100, 1, 2),
     (NULL, 150, 2, 1),
     (NULL, 200, 3, 1);
+
+
+SHOW TABLES;
+
+
