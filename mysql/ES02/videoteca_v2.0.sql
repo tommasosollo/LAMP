@@ -91,6 +91,4 @@ INSERT INTO Pagamenti (Data_Pagamento, Prezzo, ID_Ricevuta, Stato_Pagamento) VAL
     (NULL, 200, 3, 1);
 
 
-SHOW TABLES;
-
 

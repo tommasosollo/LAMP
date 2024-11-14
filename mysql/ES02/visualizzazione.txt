@@ -1,0 +1,18 @@
+mysqlshow videoteca
+mysqlshow videoteca Registi
+mysqlshow videoteca Generi
+mysqlshow videoteca Film
+mysqlshow videoteca Clienti
+mysqlshow videoteca Ricevute
+mysqlshow videoteca Stati_Pagamenti
+mysqlshow videoteca Pagamenti
+
+mysql -u root
+USE videoteca;
+SELECT * FROM Registi;
+SELECT * FROM Generi;
+SELECT * FROM Film;
+SELECT * FROM Clienti;
+SELECT * FROM Ricevute;
+SELECT * FROM Stati_Pagamenti;
+SELECT * FROM Pagamenti;
