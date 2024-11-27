@@ -61,3 +61,24 @@ VALUES
     (1, '2024-11-05', 120.00, 'Carta'),
     (2, '2024-11-12', 90.00, 'Bonifico');
 
+
+
+
+SELECT * FROM Clienti;
+SELECT * FROM Veicoli;
+SELECT * FROM Noleggi;
+SELECT * FROM Pagamenti;
+
+ALTER TABLE Clienti ADD COLUMN indirizzo VARCHAR(100);
+ALTER TABLE Veicoli MODIFY COLUMN prezzo_giornaliero DECIMAL(10, 2) NULL;
+
+DROP TABLE Pagamenti;
+
+CREATE TABLE Pagamenti (
+    pagamento_id INT AUTO_INCREMENT PRIMARY KEY,
+    noleggio_id INT NOT NULL,
+    data_pagamento DATE NOT NULL,
+    importo DECIMAL(10, 2) NOT NULL CHECK (importo > 0),
+    metodo_pagamento ENUM('Carta', 'Bonifico', 'Contanti') NOT NULL,
+    FOREIGN KEY (noleggio_id) REFERENCES Noleggi(noleggio_id) ON DELETE CASCADE
+);
