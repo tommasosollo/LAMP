@@ -69,6 +69,8 @@ SELECT * FROM Veicoli;
 SELECT * FROM Noleggi;
 SELECT * FROM Pagamenti;
 
+
+
 ALTER TABLE Clienti ADD COLUMN indirizzo VARCHAR(100);
 ALTER TABLE Veicoli MODIFY COLUMN prezzo_giornaliero DECIMAL(10, 2) NULL;
 
@@ -82,3 +84,28 @@ CREATE TABLE Pagamenti (
     metodo_pagamento ENUM('Carta', 'Bonifico', 'Contanti') NOT NULL,
     FOREIGN KEY (noleggio_id) REFERENCES Noleggi(noleggio_id) ON DELETE CASCADE
 );
+
+
+
+
+INSERT INTO Clienti (nome, cognome) VALUES ('Giulia', 'Rossi');
+
+INSERT INTO Clienti (nome, cognome, email, telefono)
+VALUES 
+    ('Giulio', 'Rossi', 'mario.rossi@email.com', '3331234567');
+
+INSERT INTO Veicoli (modello, marca, anno, targa, prezzo_giornaliero)
+VALUES ('Focus', 'Ford', 2022, 'AB123CD', 40.00);
+
+INSERT INTO Veicoli (modello, marca, anno, targa, prezzo_giornaliero)
+VALUES ('Clio', 'Renault', 2025, 'ST696TS', 40.00);
+
+INSERT INTO Noleggi (cliente_id, veicolo_id, data_inizio, data_fine, totale)
+VALUES 
+    (1, 3, '2024-11-01', '2024-11-05', -120.00);
+
+INSERT INTO Noleggi (cliente_id, veicolo_id, data_inizio, data_fine, totale)
+VALUES 
+    (100, 3, '2024-11-01', '2024-11-05', 120.00);
+
+DELETE FROM Clienti WHERE Cliente_id = 1;
