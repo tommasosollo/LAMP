@@ -41,7 +41,7 @@ public class TCPServer {
                 clientMsg = checkLine;
                 
                 do{
-                    System.out.println(checkLine);
+                    System.out.println(clientMsg);
                 } while ((clientMsg = inStream.readLine()).length() != 0);
                     
 
