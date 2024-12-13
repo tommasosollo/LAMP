@@ -137,6 +137,17 @@ window.onload = init;
 <body>
 <h1>My Smart Home - Temperatura Soggiorno</h1>
 
+<h3 id="stato"></h3>    
+
+<form action="/">
+    <label for="Temperatura">Temperatura Desiderata: </label>
+    <input type="number" name="Temperatura" min="0" max="35" required>
+
+    <input type="submit" value="Invia">
+</form>
+
+<br>
+
 <canvas id="temp_01"></canvas>
 
 </body>
