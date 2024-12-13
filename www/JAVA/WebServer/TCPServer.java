@@ -53,6 +53,11 @@ public class TCPServer {
                 Termometro termometro = new Termometro();
                 double term_val = termometro.getTemp();
 
+
+                Path filePath = Paths.get("./termometro.html"); // Percorso del file HTML
+                String content = Files.readString(filePath);
+                
+
                 
                 if (checkLine.toLowerCase().contains("/favicon.ico")) {
                     // Legge il file favicon.ico dalla directory locale
@@ -74,36 +79,29 @@ public class TCPServer {
                         outStream.write(iconBytes);
                     }
                 }
-                else if (checkLine.toLowerCase().contains("/accendi")) {
-                    // Invio dei dati su stream di rete al client
+                else {
                     clientMsg = "HTTP/1.1 200 OK\r\n";
                     // clientMsg += "Connection: close\r\n";
                     // clientMsg += "Content-Type: text/plain\r\n";
                     clientMsg += "\r\n";
-                    clientMsg += "Acceso";
-                }
-                else if (checkLine.toLowerCase().contains("/spegni")) {
-                    // Invio dei dati su stream di rete al client
-                    clientMsg = "HTTP/1.1 200 OK\r\n";
-                    // clientMsg += "Connection: close\r\n";
-                    // clientMsg += "Content-Type: text/plain\r\n";
-                    clientMsg += "\r\n";
-                    clientMsg += "Spento";
-                }
-                else{
-                    clientMsg = "HTTP/1.1 200 OK\r\n";
-                    // clientMsg += "Connection: close\r\n";
-                    // clientMsg += "Content-Type: text/plain\r\n";
-                    clientMsg += "\r\n";
-                    Path filePath = Paths.get("./termometro.html"); // Percorso del file HTML
-        
-                    String content = Files.readString(filePath);
 
                     content = content.replace("term_val", String.valueOf(term_val));
-                    System.out.println(content);
+
+                    if (checkLine.toLowerCase().contains("temperatura")) {
+                                     
+                        Double temperaturaDesiderata = Double.parseDouble(checkLine.substring(checkLine.length()-11, checkLine.length()-9));
+
+                        System.out.println("\n\n" +temperaturaDesiderata);
+                        
+                        if(temperaturaDesiderata < term_val) 
+                            content = content.replace("<h3 id=\"stato\"></h3>", "<h3 id=\"stato\" style=\"color: red;\">Termometro Spento</h3> ");
+                        
+                        else
+                            content = content.replace("<h3 id=\"stato\"></h3>", "<h3 id=\"stato\" style=\"color: green;\">Termometro Acceso</h3> ");         
+                    }
 
                     clientMsg += content; // Stampa il contenuto completo del file HTML
-        
+
                 }
                 
                 
