@@ -10,6 +10,9 @@
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class TCPServer {
 	public static void main(String[] args) throws Exception {
@@ -35,27 +38,43 @@ public class TCPServer {
 				// ---------------------------------------------------------
                 //Lettura dati dal client un riga alla volta   
                 String checkLine = inStream.readLine();
-                System.out.println(checkLine);
-
-                while ((clientMsg = inStream.readLine()).length() != 0) {
-                    System.out.println(clientMsg);
-                }
+                clientMsg = checkLine;
+                
+                do{
+                    System.out.println(checkLine);
+                } while ((clientMsg = inStream.readLine()).length() != 0);
+                    
 
 				// Elaborare qui i dati ricevuti dal client 
                 // ---------------------------------------------------------
                 
                 // Invio dei dati su stream di rete al client
 
-                
-                clientMsg = "HTTP/1.1 200 OK\r\n";
-                // clientMsg += "Connection: close\r\n";
-                // clientMsg += "Content-Type: text/plain\r\n";
-                clientMsg += "\r\n";
-                clientMsg += "Saluti dal web server Java";
-
+                Termometro termometro = new Termometro();
+                double term_val = termometro.getTemp();
 
                 
-                if (checkLine.contains("/ACCENDI")) {
+                if (checkLine.toLowerCase().contains("/favicon.ico")) {
+                    // Legge il file favicon.ico dalla directory locale
+                    File favicon = new File("./favicon.ico");
+                    if (favicon.exists()) {
+                        FileInputStream fileInputStream = new FileInputStream(favicon);
+                        byte[] iconBytes = fileInputStream.readAllBytes();
+                        fileInputStream.close();
+
+                        // Header HTTP per il file favicon.ico
+                        clientMsg = "HTTP/1.1 200 OK\r\n";
+                        clientMsg += "Content-Type: image/x-icon\r\n";
+                        clientMsg += "Content-Length: " + iconBytes.length + "\r\n";
+                        clientMsg += "\r\n";
+
+                        // Invio dell'header
+                        outStream.write(clientMsg.getBytes());
+                        // Invio del contenuto del file
+                        outStream.write(iconBytes);
+                    }
+                }
+                else if (checkLine.toLowerCase().contains("/accendi")) {
                     // Invio dei dati su stream di rete al client
                     clientMsg = "HTTP/1.1 200 OK\r\n";
                     // clientMsg += "Connection: close\r\n";
@@ -63,7 +82,7 @@ public class TCPServer {
                     clientMsg += "\r\n";
                     clientMsg += "Acceso";
                 }
-                else if (checkLine.contains("/SPEGNI")) {
+                else if (checkLine.toLowerCase().contains("/spegni")) {
                     // Invio dei dati su stream di rete al client
                     clientMsg = "HTTP/1.1 200 OK\r\n";
                     // clientMsg += "Connection: close\r\n";
@@ -71,9 +90,22 @@ public class TCPServer {
                     clientMsg += "\r\n";
                     clientMsg += "Spento";
                 }
-                
+                else{
+                    clientMsg = "HTTP/1.1 200 OK\r\n";
+                    // clientMsg += "Connection: close\r\n";
+                    // clientMsg += "Content-Type: text/plain\r\n";
+                    clientMsg += "\r\n";
+                    Path filePath = Paths.get("./termometro.html"); // Percorso del file HTML
+        
+                    String content = Files.readString(filePath);
 
-				
+                    content = content.replace("term_val", String.valueOf(term_val));
+                    System.out.println(content);
+
+                    clientMsg += content; // Stampa il contenuto completo del file HTML
+        
+                }
+                
                 
                 outStream.write(clientMsg.getBytes());
                 
