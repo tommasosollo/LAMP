@@ -90,55 +90,55 @@ INSERT INTO Autori (Nome, Nazionalita, Nascita, Morte) VALUES
 ('Haruki Murakami', 'Giapponese', '1949-01-12', NULL);
 
 
---Query di Selezione
+-- Query di Selezione
 
---01
+-- 01
 SELECT * FROM Libri WHERE AnnoPubblicazione = 1987;
 
---02
+-- 02
 SELECT * FROM Autori WHERE Nazionalita = 'Americano';
 
---03
+-- 03
 SELECT l.Titolo FROM Libri l LEFT JOIN Prestiti p ON l.ISBN = p.ISBNLibro WHERE l.AnnoPubblicazione > 2000;
 
---04
+-- 04
 SELECT p.IDPrestito FROM Libri l JOIN Prestiti p ON l.ISBN = p.ISBNLibro WHERE p.DataScadenza < curdate();
 
---05
+-- 05
 SELECT l.Titolo FROM Libri l;
 
---06
+-- 06
 SELECT u.Nome, u.Cognome FROM Utenti u;
 
---07
+-- 07
 SELECT DISTINCT a.Nazionalita FROM Autori a;
 
---08
+-- 08
 SELECT p.DataPrestito 'Data Prestito' FROM Prestiti p;
 
---09
+-- 09
 SELECT CONCAT (l.Titolo, ' - ', l.AnnoPubblicazione) AS 'Dettagli Libro'  FROM Libri l; 
 
---10
+-- 10
 SELECT Titolo, AnnoPubblicazione FROM Libri ORDER BY AnnoPubblicazione DESC;
 
---11
+-- 11
 SELECT * FROM Libri WHERE SUBSTRING(Titolo, 1, 2) = 'Il';
 
---12
+-- 12
 SELECT * FROM Libri WHERE Titolo LIKE '%Harry%';
 
---13
+-- 13
 SELECT * FROM Autori WHERE Nome LIKE '%a%';
 
---14
+-- 14
 SELECT * FROM Libri ORDER BY Titolo LIMIT 5;
 
---15
+-- 15
 SELECT * FROM Libri ORDER BY AnnoPubblicazione LIMIT 5 OFFSET 5;
 
---16
+-- 16
 SELECT * FROM Libri WHERE AnnoPubblicazione >= 1980 AND AnnoPubblicazione <= 1990;
 
---17
+-- 17
 SELECT l.Titolo, a.Nome FROM Libri l JOIN Autori a ON l.Autore = a.Nome WHERE a.ID = 1 OR a.ID = 5 OR a.ID = 6;
