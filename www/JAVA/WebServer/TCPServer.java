@@ -90,8 +90,6 @@ public class TCPServer {
                     if (checkLine.toLowerCase().contains("temperatura")) {
                                      
                         Double temperaturaDesiderata = Double.parseDouble(checkLine.substring(checkLine.length()-11, checkLine.length()-9));
-
-                        System.out.println("\n\n" +temperaturaDesiderata);
                         
                         if(temperaturaDesiderata < term_val) 
                             content = content.replace("<h3 id=\"stato\"></h3>", "<h3 id=\"stato\" style=\"color: red;\">Termometro Spento</h3> ");
@@ -100,13 +98,12 @@ public class TCPServer {
                             content = content.replace("<h3 id=\"stato\"></h3>", "<h3 id=\"stato\" style=\"color: green;\">Termometro Acceso</h3> ");         
                     }
 
-                    clientMsg += content; // Stampa il contenuto completo del file HTML
+                    clientMsg += content;
 
+                    outStream.write(clientMsg.getBytes());
                 }
                 
-                
-                outStream.write(clientMsg.getBytes());
-                
+
 				outStream.flush();
 
 				System.out.println("\n....................... Fine ricezione dati\n");
