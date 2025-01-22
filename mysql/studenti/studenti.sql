@@ -12,8 +12,8 @@ CREATE TABLE studenti (
     nome VARCHAR(100) NOT NULL,
     cognome VARCHAR(100) NOT NULL,
     data_nascita DATE NOT NULL,
-    corso_studi INT NOT NULL,
-    FOREIGN KEY (corso_studi) REFERENCES corsi(id) ON DELETE NO ACTION ON UPDATE CASCADE
+    FK_corsi INT NOT NULL,
+    FOREIGN KEY (FK_corsi) REFERENCES corsi(id) ON DELETE NO ACTION ON UPDATE CASCADE
 );
 
 CREATE TABLE materie (
@@ -40,7 +40,7 @@ INSERT INTO corsi (nome) VALUES
 ('Economia');
 
 
-INSERT INTO studenti (nome, cognome, data_nascita, corso_studi) VALUES
+INSERT INTO studenti (nome, cognome, data_nascita, FK_corsi) VALUES
 ('Mario', 'Rossi', '1995-05-20', 1),
 ('Giuseppe', 'Bianchi', '1998-08-15', 2),
 ('Luigi', 'Verdi', '1997-03-10', 3),
@@ -103,6 +103,10 @@ INSERT INTO valutazioni (FK_studenti, FK_materie, voto) VALUES
 (8, 4, 9),
 (8, 5, 9);
 
+
+select s.matricola, s.nome, s.cognome, s.data_nascita as 'data nascita', c.nome as 'corso di studi' from studenti s join corsi c on s.FK_corsi = c.id;
+
+select s.cognome, s.nome, v.voto, m.nome as 'materia' from studenti s, valutazioni v, materie m where s.matricola = v.FK_studenti and v.FK_materie = m.id order by cognome;
 
 
 
