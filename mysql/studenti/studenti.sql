@@ -2,12 +2,12 @@ CREATE DATABASE IF NOT EXISTS studenti;
 USE studenti;
 
 
-CREATE TABLE IF NOT EXISTS corsi (
+CREATE TABLE corsi (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
+    nome VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS studenti (
+CREATE TABLE studenti (
     matricola INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     cognome VARCHAR(100) NOT NULL,
@@ -16,17 +16,17 @@ CREATE TABLE IF NOT EXISTS studenti (
     FOREIGN KEY (corso_studi) REFERENCES corsi(id) ON DELETE NO ACTION ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS materie (
+CREATE TABLE materie (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
+    nome VARCHAR(100) NOT NULL
 );
 
-CREATE TABLEIFNOT EXISTS valutazioni (
+CREATE TABLE valutazioni (
     id INT AUTO_INCREMENT PRIMARY KEY,
     FK_studenti INT NOT NULL,
     FK_materie INT NOT NULL,
-    voto INT NOT NULL VALUES (1,10),
-    FOREIGN KEY (matricola) REFERENCES studenti(matricola) ON DELETE NO ACTION ON UPDATE CASCADE,
+    voto INT NOT NULL,
+    FOREIGN KEY (FK_studenti) REFERENCES studenti(matricola) ON DELETE NO ACTION ON UPDATE CASCADE,
     FOREIGN KEY (FK_materie) REFERENCES materie(id) ON DELETE NO ACTION ON UPDATE CASCADE
 );
 
@@ -36,6 +36,8 @@ INSERT INTO corsi (nome) VALUES
 ('Matematica'),
 ('Scienze'),
 ('Lingue'),
+('Geografia'),
+('Economia');
 
 
 INSERT INTO studenti (nome, cognome, data_nascita, corso_studi) VALUES
