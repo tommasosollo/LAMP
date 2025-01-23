@@ -41,31 +41,17 @@ INSERT INTO corsi (nome) VALUES
 ('Economia');
 
 
-INSERT INTO studenti (nome, cognome, data_nascita, FK_corsi) VALUES
-('Giuseppe', 'Rossi', '1995-01-15', 1),
-('Maria', 'Verdi', '1996-02-10', 2),
-('Giorgio', 'Bianchi', '1997-03-12', 3),
-('Luca', 'Neri', '1998-04-11', 4),
-('Antonio', 'Gialli', '1999-05-10', 5),
-('Paolo', 'Martini', '2000-06-09', 6)
-('Anna', 'Pellegrini', '2001-07-08', 1),
-('Francesco', 'Conte', '2002-08-07', 2),
-('Emanuele', 'Rossi', '2003-09-06', 3),
-('Francesco', 'Russo', '2004-10-05', 4),
-('Andrea', 'Mancini', '2005-11-04', 5),
-('Giovanni', 'Greco', '2006-12-03', 6)
-('Marco', 'Rossi', '2007-01-02', 1),
-('Giuseppe', 'Verdi', '2008-02-01', 2),
-('Maria', 'Bianchi', '2009-03-04', 3),
-('Giorgio', 'Neri', '2010-04-03', 4),
-('Antonio', 'Gialli', '2011-05-02', 5),
-('Paolo', 'Martini', '2012-06-01', 6),
-('Anna', 'Pellegrini', '2013-07-12', 1),
-('Francesco', 'Conte', '2014-08-11', 2),
-('Emanuele', 'Rossi', '2015-09-10', 3),
-('Francesco', 'Russo', '2016-10-09', 4),
-('Andrea', 'Mancini', '2017-11-08', 5),
-('Giovanni', 'Greco', '2018-12-12', 1);
+INSERT INTO studenti (nome, cognome, data_nascita, FK_corsi, capogruppo) VALUES
+('Giuseppe', 'Rossi', '1990-05-15', 1, 1),
+('Maria', 'Bianchi', '1992-03-20', 2, 2),
+('Luca', 'Verdi', '1991-08-10', 3, 1),
+('Giorgio', 'Gialli', '1992-07-15', 4, 2),
+('Anna', 'Neri', '1990-12-05', 5, 1),
+('Andrea', 'Rossi', '1991-06-10', 6, 2),
+('Giuseppe', 'Bianchi', '1990-05-15', 1, 2),
+('Maria', 'Verdi', '1992-03-20', 2, 1),
+('Luca', 'Gialli', '1992-07-15', 4, 2);
+
 
 
 
@@ -122,13 +108,17 @@ INSERT INTO valutazioni (FK_studenti, FK_materie, voto) VALUES
 (8, 5, 9);
 
 
+select s.cognome, s.nome, s.data_nascita as 'data di nascita' 
+from studenti s;
+
+select s.nome from studenti s where s.cognome = "Rossi";
+
 select s.matricola, s.nome, s.cognome, s.data_nascita as 'data nascita', c.nome as 'corso di studi' from studenti s join corsi c on s.FK_corsi = c.id;
 
 select s.cognome, s.nome, v.voto, m.nome as 'materia', YEAR(CURDATE()) - YEAR(s.data_nascita) as 'data di nascita'
 from studenti s, valutazioni v, materie m 
 where s.matricola = v.FK_studenti and v.FK_materie = m.id 
 order by cognome;
-
 
 select s.cognome, s.nome, v.voto, m.nome as 'materia', YEAR(CURDATE()) - YEAR(s.data_nascita) as 'età'
 from studenti s, valutazioni v, materie m 
