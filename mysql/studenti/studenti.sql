@@ -12,6 +12,7 @@ CREATE TABLE studenti (
     nome VARCHAR(100) NOT NULL,
     cognome VARCHAR(100) NOT NULL,
     data_nascita DATE NOT NULL,
+    capogruppo INT NOT NULL,
     FK_corsi INT NOT NULL,
     FOREIGN KEY (FK_corsi) REFERENCES corsi(id) ON DELETE NO ACTION ON UPDATE CASCADE
 );
@@ -41,14 +42,31 @@ INSERT INTO corsi (nome) VALUES
 
 
 INSERT INTO studenti (nome, cognome, data_nascita, FK_corsi) VALUES
-('Mario', 'Rossi', '1995-05-20', 1),
-('Giuseppe', 'Bianchi', '1998-08-15', 2),
-('Luigi', 'Verdi', '1997-03-10', 3),
-('Anna', 'Neri', '1996-12-12', 4),
-('Giorgio', 'Gialli', '1999-07-05', 1),
-('Antonio', 'Pellegrini', '1998-11-01', 2),
-('Emanuele', 'Russo', '1997-06-07', 3),
-('Francesco', 'Marconi', '1996-10-03', 4);
+('Giuseppe', 'Rossi', '1995-01-15', 1),
+('Maria', 'Verdi', '1996-02-10', 2),
+('Giorgio', 'Bianchi', '1997-03-12', 3),
+('Luca', 'Neri', '1998-04-11', 4),
+('Antonio', 'Gialli', '1999-05-10', 5),
+('Paolo', 'Martini', '2000-06-09', 6)
+('Anna', 'Pellegrini', '2001-07-08', 1),
+('Francesco', 'Conte', '2002-08-07', 2),
+('Emanuele', 'Rossi', '2003-09-06', 3),
+('Francesco', 'Russo', '2004-10-05', 4),
+('Andrea', 'Mancini', '2005-11-04', 5),
+('Giovanni', 'Greco', '2006-12-03', 6)
+('Marco', 'Rossi', '2007-01-02', 1),
+('Giuseppe', 'Verdi', '2008-02-01', 2),
+('Maria', 'Bianchi', '2009-03-04', 3),
+('Giorgio', 'Neri', '2010-04-03', 4),
+('Antonio', 'Gialli', '2011-05-02', 5),
+('Paolo', 'Martini', '2012-06-01', 6),
+('Anna', 'Pellegrini', '2013-07-12', 1),
+('Francesco', 'Conte', '2014-08-11', 2),
+('Emanuele', 'Rossi', '2015-09-10', 3),
+('Francesco', 'Russo', '2016-10-09', 4),
+('Andrea', 'Mancini', '2017-11-08', 5),
+('Giovanni', 'Greco', '2018-12-12', 1);
+
 
 
 INSERT INTO materie (nome) VALUES
@@ -106,7 +124,27 @@ INSERT INTO valutazioni (FK_studenti, FK_materie, voto) VALUES
 
 select s.matricola, s.nome, s.cognome, s.data_nascita as 'data nascita', c.nome as 'corso di studi' from studenti s join corsi c on s.FK_corsi = c.id;
 
-select s.cognome, s.nome, v.voto, m.nome as 'materia' from studenti s, valutazioni v, materie m where s.matricola = v.FK_studenti and v.FK_materie = m.id order by cognome;
+select s.cognome, s.nome, v.voto, m.nome as 'materia', YEAR(CURDATE()) - YEAR(s.data_nascita) as 'data di nascita'
+from studenti s, valutazioni v, materie m 
+where s.matricola = v.FK_studenti and v.FK_materie = m.id 
+order by cognome;
 
 
+select s.cognome, s.nome, v.voto, m.nome as 'materia', YEAR(CURDATE()) - YEAR(s.data_nascita) as 'età'
+from studenti s, valutazioni v, materie m 
+where s.matricola = v.FK_studenti and v.FK_materie = m.id and s.cognome like 'M%'
+order by cognome;
 
+select s.cognome, COUNT(v.voto) as 'numero voti', AVG(v.voto) as 'media voti', MAX(v.voto) as 'voto massimo', MIN(v.voto) as 'voto minimo'
+from valutazioni v, studenti s
+where v.FK_studenti = '7' and s.matricola = v.FK_studenti
+GROUP BY s.cognome;
+
+select COUNT(s.matricola) as "numero studenti maggiorenni" 
+from studenti s 
+WHERE YEAR(CURDATE()) - YEAR(s.data_nascita) >= 18;
+
+select s.cognome as 'studenti senza voti' 
+from studenti s 
+LEFT JOIN valutazioni v ON s.matricola = v.FK_studenti 
+WHERE v.voto IS NULL;
