@@ -111,7 +111,25 @@ INSERT INTO valutazioni (FK_studenti, FK_materie, voto) VALUES
 select s.cognome, s.nome, s.data_nascita as 'data di nascita' 
 from studenti s;
 
-select s.nome from studenti s where s.cognome = "Rossi";
+
+select s.nome 
+from studenti s 
+where s.cognome = "Rossi";
+
+
+select YEAR(CURDATE()) - YEAR(s.data_nascita) as 'età'
+from studenti s 
+where s.matricola = '1';
+
+select s.nome 
+from studenti s 
+where s.nome like 'M%';
+
+select v.voto from valutazioni v where v.FK_studenti = '1';
+
+
+select v.voto from valutazioni v join studenti s on v.FK_studenti = s.matricola and s.cognome = 'Rossi';
+
 
 select s.matricola, s.nome, s.cognome, s.data_nascita as 'data nascita', c.nome as 'corso di studi' from studenti s join corsi c on s.FK_corsi = c.id;
 
