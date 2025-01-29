@@ -1,26 +1,28 @@
 <?php
-    session_start();
-    if(isset($_SESSION['username'])){
-        header('Location: restricted_page.php');
+session_start();
+if (isset($_SESSION['username'])) {
+    header('Location: index.php');
+    die();
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    if ($username == 'admin' && $password == 'admin') {
+
+        $_SESSION['username'] = $username;
+
+        $url = 'Location: ' . $_POST['from'] ?? 'Location: index.php';
+        header($url);
         die();
+    } else {
+        echo "<h3 style='color:red'>username o pasword sbagliati</h3>";
     }
+}
 
-    if($_SERVER["REQUEST_METHOD"] == "POST"){
-        $username = $_POST["username"];
-        $password = $_POST["password"];
-        if($username == "admin" && $password == "admin"){
-            $_SESSION['username'] = $username;
-            header('Location: index.php');
-            die();
-        }
-        else{
-            echo "<h3 style='color:red'>username o pasword sbagliati</h3>";
-        }
-    }
-
-    if($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['err'])){
-        echo "<h3 style='color:red'>".$_GET['err']."</h3>";
-    }
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['err'])) {
+    echo "<h3 style='color:red'>" . $_GET['err'] . '</h3>';
+}
 ?>
 
 
@@ -33,7 +35,7 @@
     <title>Login</title>
 </head>
 <body>
-    <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="POST">
+    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
         <label for="username">Username</label>
         <input type="text" name="username" id="username">
         <br>
@@ -41,6 +43,8 @@
         <input type="password" name="password" id="password">
         <br>
         <input type="submit" value="Login">
+
+        <input type="hidden" name="from" value="<?php echo $_GET['from']; ?>" >
     </form>
 </body>
 </html>

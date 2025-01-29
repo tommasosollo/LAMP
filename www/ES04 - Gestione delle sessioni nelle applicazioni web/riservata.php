@@ -1,7 +1,9 @@
 <?php
     session_start();
     if(!isset($_SESSION['username'])){
-        header("Location: login.php?err=Login non effettuato");
+        $url = 'login.php?error=Fare prima il login&from=';
+        $url .= basename($_SERVER['PHP_SELF']);
+        header("Location: $url");
         die();
     }
     echo "<h3>Benvenuto " . $_SESSION['username'] . "</h3>";
@@ -15,6 +17,8 @@
     <title>Pagina Riservata</title>
 </head>
 <body>
-    
+    <a href="index.php">Home page</a>
+    <br>
+    <a href="logout.php">Logout</a>
 </body>
 </html>
