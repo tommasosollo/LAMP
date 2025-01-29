@@ -1,9 +1,9 @@
 <?php
     session_start();
     if(isset($_SESSION['username'])){
-        $link = "<a href="logout.php">Logout</a>"
+        $link = "<a href='logout.php'>Logout</a>";
     } else {
-        $link = "<a href="login.php">Login</a>";
+        $link = "<a href='login.php'>Login</a>";
     }
 ?>
 <!DOCTYPE html>
@@ -16,6 +16,7 @@
 <body>
     <h1>Benvenuto!</h1>
     <a href="riservata.php">Accedi alla pagina riservata</a>
+    <br>
     <?php echo $link; ?>
 </body>
 </html>
