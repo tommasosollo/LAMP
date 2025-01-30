@@ -11,17 +11,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($username == 'admin' && $password == 'admin') {
 
         $_SESSION['username'] = $username;
+        
+        $url = 'Location: ';
+        $url .= $_POST['from'] ?? 'index.php';
 
-        $url = 'Location: ' . $_POST['from'] ?? 'Location: index.php';
         header($url);
         die();
+
     } else {
         echo "<h3 style='color:red'>username o pasword sbagliati</h3>";
     }
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['err'])) {
-    echo "<h3 style='color:red'>" . $_GET['err'] . '</h3>';
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['error'])) {
+    echo "<h3 style='color:red'>" . $_GET['error'] . '</h3>';
 }
 ?>
 
@@ -48,3 +51,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['err'])) {
     </form>
 </body>
 </html>
+
+

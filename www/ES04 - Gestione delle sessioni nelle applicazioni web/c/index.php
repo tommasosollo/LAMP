@@ -1,10 +1,9 @@
 <?php
-    session_start();
-    if(isset($_SESSION['username'])){
-        $link = "<a href='logout.php'>Logout</a>";
-    } else {
-        $link = "<a href='login.php'>Login</a>";
-    }
+
+    require 'loginLib.php';
+
+    $link = setLink();
+
 ?>
 <!DOCTYPE html>
 <html lang="it">
