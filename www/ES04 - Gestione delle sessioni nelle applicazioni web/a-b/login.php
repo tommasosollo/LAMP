@@ -5,6 +5,10 @@ if (isset($_SESSION['username'])) {
     die();
 }
 
+if (isset($_GET['error'])) {
+    $err_msg = "<h3 style='color:red'>" . $_GET['error'] . '</h3>';
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -19,13 +23,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         die();
 
     } else {
-        echo "<h3 style='color:red'>username o pasword sbagliati</h3>";
+        $err_msg = "<h3 style='color:red'>username o pasword sbagliati</h3>";
     }
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['error'])) {
-    echo "<h3 style='color:red'>" . $_GET['error'] . '</h3>';
-}
+
 ?>
 
 
@@ -38,6 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['error'])) {
     <title>Login</title>
 </head>
 <body>
+    <?=$err_msg?>
+
     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
         <label for="username">Username</label>
         <input type="text" name="username" id="username">

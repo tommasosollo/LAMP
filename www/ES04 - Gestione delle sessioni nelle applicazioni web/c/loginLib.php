@@ -1,23 +1,14 @@
 <?php
 
 /**
- * Controllo se la sessione è stata inizalizziata corrente
- * e anche ................
+ * Controllo se la sessione è stata inizalizziata correttamente
  */
-function checkSession($from = null, $ifIsSet = 'index.php', $err = null)
+function checkSession()
 {
-    if (!isset($_SESSION['username'])) {
-        if ('login.php' != baseline($_SERVER[PHP_SELF])) {
-            $url = 'Location: login.php';
-            if ($from)
-                $url .= '?from=' . $from;
-            if ($err)
-                $url .= '&error=' . $err;
-            header($url);
-            die();
-        }
+    if (isset($_SESSION['username'])) {
+        return [true, 'Sessione attiva'];
     } else {
-        header('Location: ' . $ifIsSet);
+        return [false, 'Sessione non attiva'];
     }
 }
 
@@ -60,7 +51,7 @@ function logout()
 
 function setLink()
 {
-    if (isset($_SESSION['username'])) {
+    if (checksession()[0]) {
         $link = "<a href='logout.php'>Logout</a>";
     } else {
         $link = "<a href='login.php'>Login</a>";

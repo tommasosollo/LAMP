@@ -3,9 +3,16 @@
 
     session_start();
 
-    checkSession(basename($_SERVER['PHP_SELF']), basename($_SERVER['PHP_SELF']), 'Fare prima il login');
+    [$sessionRetval, $sessionRetmsg] = checkSession();
 
-    echo "<h3>Benvenuto " . $_SESSION['username'] . "</h3>";
+    if ($sessionRetval == false) {
+        $url = 'Location: login.php';
+        $url .= '?from='.basename($_SERVER['PHP_SELF']);
+        $url .= '&error=' . $sessionRetmsg;
+        header($url);
+        die();
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -16,6 +23,8 @@
     <title>Pagina Riservata</title>
 </head>
 <body>
+    <?="<h3>Benvenuto " . $_SESSION['username'] . "</h3>"?>
+
     <a href="index.php">Home page</a>
     <br>
     <a href="logout.php">Logout</a>
