@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+$_SESSION['tentativi'] = 5;
+
 require 'loginLib.php';
 
 [$sessionRetval, $sessionRetmsg] = checkSession();
@@ -15,7 +17,7 @@ if($sessionRetval) {
 
 $err_msg = $_GET['error'] ?? '';
 
-if($_SERVER['REQUEST_METHOD'] == 'POST') {
+if($_SERVER['REQUEST_METHOD'] == 'POST' AND !$_SESSION['timestamp']) {
 
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
@@ -33,7 +35,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     else {
         $err_msg = $retmsg;
+        $_SESSION['tentativi']--;
+        if($_SESSION['tentativi'] == 0) {
+            $err_msg = 'Tentativi esauriti';
+            $_SESSION['timestamp'] = $_SERVER['REQUEST_TIME'];
+            echo $_SESSION['timestamp'];
+        }
     }
+    
 }
 
 
