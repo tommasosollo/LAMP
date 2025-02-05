@@ -3,7 +3,7 @@ body {
     font-family: Arial, sans-serif;
 }
 
-#login-container {
+#login-container, #container {
     height: 50%;
     width: 30%;
     margin: 0 auto;
@@ -44,8 +44,17 @@ input[type="submit"] {
     text-align: center;
     color: #007bff;
     text-decoration: none;
+    cursor: pointer;
 }
 
-#links:hover {
+.clickable-div {
+    color: #545a5f;
+    text-decoration: none;
+    margin-top: 10px;
+    text-align: center;
     cursor: pointer;
+    border-radius: 10px;
+    border: #ccc 3px solid;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: rgb(246, 255, 252);
 }

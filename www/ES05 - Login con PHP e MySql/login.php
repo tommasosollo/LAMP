@@ -3,10 +3,14 @@
 require 'functions.php';
 
 session_start();
-$msg = '';
-$links = setLinks();
 
-if($_SERVER['REQUEST_METHOD'] == 'POST') {
+$msg = '';
+
+
+if(isset($_SESSION['username'])) {
+    $msg = 'Login già effettuato';
+}
+else if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
     
@@ -19,8 +23,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-
-
+$links = setLinks();
 
 ?>
 

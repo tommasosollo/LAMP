@@ -1,4 +1,5 @@
 <?php
+
 define('DB_SERVER', 'localhost');
 define('DB_USERNAME', 'ES05_user');
 define('DB_PASSWORD', 'password');
@@ -56,9 +57,10 @@ function logout()
     die();
 }
 
-function setLink()
+function setLinks()
 {
-    if (checksession()[0]) {
+
+    if (!checkSession()[0]) {
         $links = <<<LINKS
         <a href="register.php">Registrati</a>
         <br>
@@ -71,7 +73,7 @@ function setLink()
         <a href="logout.php">Logout</a>
         LINKS;
     }
-    return $link;
+    return $links;
 }
 
 function isRegistered($username, $password)
@@ -131,5 +133,30 @@ function registerUser($username, $password)
     } else {
         return [false, 'Errore: ' . mysqli_error($conn)];
     }
+
+    mysqli_close($conn);
+}
+
+function eliminaAccount($username) {
+    // Connessione al database
+    $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+    
+    if (!$conn) {
+        die("Connessione fallita: ". mysqli_connect_error());
+    }
+    
+    // Query per eliminare un record dalla tabella users
+    $query = "DELETE FROM utenti WHERE username = '$username';";
+    
+    // Esecuzione della query
+    $result = mysqli_query($conn, $query);
+    
+    if ($result) {
+        return [true, 'Account eliminato con successo'];
+    } else {
+        return [false, 'Errore: '. mysqli_error($conn)];
+    }
+
+    mysqli_close($conn);
 }
 ?>
