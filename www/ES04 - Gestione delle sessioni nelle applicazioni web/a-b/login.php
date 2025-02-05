@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['username'] = $username;
         
         $url = 'Location: ';
-        $url .= $_POST['from'] ?? 'index.php';
+        $url .= $_POST['from'] == null ? 'index.php' : $_POST['from'];
 
         header($url);
         die();
@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <br>
         <input type="submit" value="Login">
 
-        <input type="hidden" name="from" value="<?php echo $_GET['from']; ?>" >
+        <input type="hidden" name="from" value="<?=$_GET['from'] ?? null ?>" >
     </form>
 </body>
 </html>
