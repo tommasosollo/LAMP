@@ -13,3 +13,4 @@ CREATE TABLE IF NOT EXISTS Utenti (
 
 INSERT INTO utenti (UserID, Username, Password )
 VALUES (NULL, 'utente', 'prova');
+
