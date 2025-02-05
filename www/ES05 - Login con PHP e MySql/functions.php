@@ -1,8 +1,5 @@
 <?php
 
-/**
- * Controllo se la sessione è stata inizalizziata correttamente
- */
 function checkSession()
 {
     if (isset($_SESSION['username'])) {
@@ -28,16 +25,6 @@ function logout()
     session_destroy();
     header('Location: login.php');
     die();
-}
-
-function setLink()
-{
-    if (checksession()[0]) {
-        $link = "<a href='logout.php'>Logout</a>";
-    } else {
-        $link = "<a href='login.php'>Login</a>";
-    }
-    return $link;
 }
 
 ?>
