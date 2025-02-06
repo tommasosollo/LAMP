@@ -159,4 +159,28 @@ function eliminaAccount($username) {
 
     mysqli_close($conn);
 }
+
+function resetPassword($username, $password) {
+    // Connessione al database
+    $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+    
+    if (!$conn) {
+        die("Connessione fallita: ". mysqli_connect_error());
+    }
+    
+    // Query per aggiornare la password di un utente
+    $query = "UPDATE utenti SET password = '$password' WHERE username = '$username';";
+    
+    // Esecuzione della query
+    $result = mysqli_query($conn, $query);
+    
+    if ($result) {
+        return [true, 'Password ripristinata con successo'];
+    } else {
+        return [false, 'Errore: '. mysqli_error($conn)];
+    }
+
+    mysqli_close($conn);
+}
+
 ?>
