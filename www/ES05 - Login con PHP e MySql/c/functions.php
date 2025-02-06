@@ -109,7 +109,7 @@ function isRegistered($username, $password)
     mysqli_close($conn);
 }
 
-function registerUser($username, $password)
+function registerUser($username, $password, $email, $nome, $cognome)
 {
     // Connessione al database
     $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
@@ -125,7 +125,7 @@ function registerUser($username, $password)
     try {
     
         // Query per aggiungere un nuovo record alla tabella users
-        $query = "INSERT INTO utenti (username, password) VALUES ('$username', '$password');";
+        $query = "INSERT INTO utenti (username, password, email, nome, cognome) VALUES ('$username', '$password', '$email', '$nome', '$cognome');";
         
         // Esecuzione della query
         $result = mysqli_query($conn, $query);

@@ -8,9 +8,11 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON ES05.* TO 'ES05_user'@'localhost';
 CREATE TABLE IF NOT EXISTS Utenti (
     UserID INT AUTO_INCREMENT PRIMARY KEY,
     Username VARCHAR(50) NOT NULL UNIQUE,
-    Password VARCHAR(255) NOT NULL
+    Password VARCHAR(255) NOT NULL,
+    Email VARCHAR(100) NOT NULL UNIQUE,
+    Nome VARCHAR(50) NOT NULL,
+    Cognome VARCHAR(50) NOT NULL
 );
 
-INSERT INTO Utenti (UserID, Username, Password )
-VALUES (NULL, 'utente', 'prova');
-
+INSERT INTO Utenti (Username, Password, Email, Nome, Cognome) VALUES 
+('user1', 'password1', 'user1@example.com', 'User', 'One');
