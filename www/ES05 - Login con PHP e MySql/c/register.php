@@ -12,6 +12,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     [$regRetval, $regRetmsg] = registerUser($username, $password);
 
     $msg = $regRetmsg;
+
+    if ($regRetval) {
+        $_SESSION['username'] = $username;
+        header('Location: index.php');
+        die();
+    }
 }
 ?>
 
@@ -32,14 +38,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
             
-            <input type="text" name="username" id="username" placeholder="Username">
+            <input type="text" name="username" id="username" placeholder="Username" pattern=".{3,}" required title="Minimo 3 lettere">
             <br>
             
-            <input type="password" name="password" id="password" placeholder="Password">
+            <input type="password" name="password" id="password" placeholder="Password" pattern=".{3,}" required title="Minimo 3 lettere">
             <br>
             <input type="submit" value="Registrati" id="login-button">
 
-            <input type="hidden" name="from" value="<?=$_GET['from'] ?? null?>" > 
         </form>
         <div id="links">
             <a href="login.php">Accedi</a>

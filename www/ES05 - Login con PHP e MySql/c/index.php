@@ -3,6 +3,8 @@ require 'functions.php';
 
 session_start();
 
+$user = $_SESSION['username'] ?? '';
+
 // Check if user is already logged in
 if(!checkSession()[0]) {
     
@@ -40,7 +42,12 @@ if(!checkSession()[0]) {
     <title>Homepage</title>
 </head>
 <body>
+
+
+
 <div id="container">
+    <h1>Homepage</h1>
+    <h2>Benvenuto <?=$user?></h2>
 
     <?=$htmlLinks?>
 

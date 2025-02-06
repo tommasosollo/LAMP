@@ -18,6 +18,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         $msg = 'Le due password non coincidono';
     }
+
+    if ($resetRetval) {
+        unset($_SESSION['username']);
+        header('Location: login.php?error=Password%20reset%20effettuato%20con%20successo');
+        die();
+    }
 }
 
 ?>
@@ -39,12 +45,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
             
-            <input type="text" name="username" id="username" placeholder="Username">
+            <input type="text" name="username" id="username" placeholder="Username" pattern=".{3,}" required title="Minimo 3 lettere">
             <br>
             
-            <input type="password" name="nuovaPwd" id="nuovaPwd" placeholder="Nuova Password">
+            <input type="password" name="nuovaPwd" id="nuovaPwd" placeholder="Nuova Password" pattern=".{3,}" required title="Minimo 3 lettere">
             <br>
-            <input type="password" name="ripNuovaPwd" id="ripNuovaPwd" placeholder="Ripeti Nuova Password">
+            <input type="password" name="ripNuovaPwd" id="ripNuovaPwd" placeholder="Ripeti Nuova Password" pattern=".{3,}" required title="Minimo 3 lettere">
             <br>
 
             <input type="submit" value="Reset Password" id="login-button">

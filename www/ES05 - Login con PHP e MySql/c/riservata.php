@@ -5,7 +5,7 @@ require 'functions.php';
 session_start();
 
 if(!checkSession()[0]) {
-    header('Location: login.php');
+    header('Location: login.php?from=' . $_SERVER['PHP_SELF']);
     exit;
 }
 

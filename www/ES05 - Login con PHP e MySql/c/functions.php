@@ -121,17 +121,23 @@ function registerUser($username, $password)
     if (isRegistered($username, $password)) {
         return [false, 'Username già in uso'];
     }
+
+    try {
     
-    // Query per aggiungere un nuovo record alla tabella users
-    $query = "INSERT INTO utenti (username, password) VALUES ('$username', '$password');";
-    
-    // Esecuzione della query
-    $result = mysqli_query($conn, $query);
-    
-    if ($result) {
-        return [true, 'Registrazione avvenuta con successo'];
-    } else {
-        return [false, 'Errore: ' . mysqli_error($conn)];
+        // Query per aggiungere un nuovo record alla tabella users
+        $query = "INSERT INTO utenti (username, password) VALUES ('$username', '$password');";
+        
+        // Esecuzione della query
+        $result = mysqli_query($conn, $query);
+        
+        if ($result) {
+            return [true, 'Registrazione avvenuta con successo'];
+        } else {
+            return [false, 'Errore: ' . mysqli_error($conn)];
+        }
+
+    } catch (\Exception $e) {
+        return [false, 'Errore: ' . $e->getMessage()];
     }
 
     mysqli_close($conn);
@@ -166,6 +172,10 @@ function resetPassword($username, $password) {
     
     if (!$conn) {
         die("Connessione fallita: ". mysqli_connect_error());
+    }
+
+    if ($_SESSION['username'] != $username) {
+        return [false, 'Nome utente non valido'];
     }
     
     // Query per aggiornare la password di un utente
