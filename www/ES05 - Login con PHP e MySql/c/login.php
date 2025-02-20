@@ -6,7 +6,8 @@ session_start();
 
 if($_SERVER['REQUEST_METHOD'] == 'GET') {
     $_SESSION['tentativi'] = 5;
-    $_SESSION['timestamp'] = null;
+    $_SESSION['timestamp'] = 0;
+    $_SESSION['lastUsername'] = "";
 }
 
 $msg = $_GET['error'] ?? '';
@@ -31,12 +32,18 @@ if (isset($_SESSION['username'])) {
         die();
     }
     else {
-        $msg = $loginRetmsg;
-        $_SESSION['tentativi']--;
-        $msg .= '. Tentativi rimasti: '.$_SESSION['tentativi'];
-        if($_SESSION['tentativi'] == 0) {
-            $msg = 'Tentativi esauriti, account bloccato per 1 minuto';
-            $_SESSION['timestamp'] = $_SERVER['REQUEST_TIME'];
+        if($_POST['username']==$_SESSION['lastUsername']) {
+            $msg = $loginRetmsg;
+            $_SESSION['tentativi']--;
+            $msg .= '. Tentativi rimasti: '.$_SESSION['tentativi'];
+            if($_SESSION['tentativi'] == 0) {
+                $msg = 'Tentativi esauriti, account bloccato per 1 minuto';
+                $_SESSION['timestamp'] = $_SERVER['REQUEST_TIME'];
+            }
+        }
+        else {
+            $_SESSION['lastUsername'] = $_POST['username'];
+            $_SESSION['tentativi'] = 5;
         }
     }
 
@@ -46,7 +53,7 @@ if (isset($_SESSION['username'])) {
         $_SESSION['tentativi'] = 5;
         $_SESSION['timestamp'] = null;
     }
-    else $msg = 'Account Bloccato. Riprova tra ' . $_SESSION['timestamp'] + 60 - $_SERVER['REQUEST_TIME'] . " secondi";
+    else $msg = 'Account Bloccato. Riprova tra ' . ($_SESSION['timestamp'] + 60 - $_SERVER['REQUEST_TIME']) . " secondi";
 
 }
 
