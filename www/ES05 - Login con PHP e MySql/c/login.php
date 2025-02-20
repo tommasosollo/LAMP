@@ -4,6 +4,8 @@ require 'functions.php';
 
 session_start();
 
+$tempo_blocco = 60;
+
 if($_SERVER['REQUEST_METHOD'] == 'GET') {
     $_SESSION['tentativi'] = 5;
     $_SESSION['timestamp'] = 0;
@@ -14,7 +16,7 @@ $msg = $_GET['error'] ?? '';
 
 if (isset($_SESSION['username'])) {
     $msg = 'Login già effettuato';
-} else if($_SERVER['REQUEST_METHOD'] == 'POST' AND (!$_SESSION['timestamp'] OR $_SESSION['timestamp'] + 60 < $_SERVER['REQUEST_TIME'])) {
+} else if($_SERVER['REQUEST_METHOD'] == 'POST' AND (!$_SESSION['timestamp'] OR $_SESSION['timestamp'] + $tempo_blocco < $_SERVER['REQUEST_TIME'])) {
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
     
@@ -49,11 +51,11 @@ if (isset($_SESSION['username'])) {
 
 } else if ($_SESSION['timestamp']) {
 
-    if($_SESSION['timestamp'] + 60 < $_SERVER['REQUEST_TIME']) {
+    if($_SESSION['timestamp'] + $tempo_blocco < $_SERVER['REQUEST_TIME']) {
         $_SESSION['tentativi'] = 5;
         $_SESSION['timestamp'] = null;
     }
-    else $msg = 'Account Bloccato. Riprova tra ' . ($_SESSION['timestamp'] + 60 - $_SERVER['REQUEST_TIME']) . " secondi";
+    else $msg = 'Account Bloccato. Riprova tra ' . ($_SESSION['timestamp'] + $tempo_blocco - $_SERVER['REQUEST_TIME']) . " secondi";
 
 }
 
