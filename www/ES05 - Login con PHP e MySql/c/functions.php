@@ -5,7 +5,6 @@ define('DB_USERNAME', 'ES05_user');
 define('DB_PASSWORD', 'password');
 define('DB_NAME', 'ES05');
 
-
 function checkSession()
 {
     if (isset($_SESSION['username'])) {
@@ -21,18 +20,19 @@ function login_check($username, $password)
     $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
     if (!$conn) {
-        die("Connessione fallita: " . mysqli_connect_error());
+        throw new Exception('errore connessione database');
     }
 
-    // Query per selezionare tutti i record dalla tabella users
-    $query = "SELECT UserID FROM utenti where username = '$username' and password = '$password';";
     
+
+    // Query per selezionare tutti i record dalla tabella users
+    $query = "SELECT UserID FROM Utenti where Username = '$username' and Password = SHA2('$password', 256);";
 
     // Esecuzione della query
     $result = mysqli_query($conn, $query);
 
     if ($result) {
-        // Controllo se ci sono record        
+        // Controllo se ci sono record
         if (mysqli_num_rows($result) > 0) {
             return [true, 'Login avvenuto con successo'];
         } else {
@@ -53,48 +53,29 @@ function logout()
 {
     session_start();
     session_destroy();
+    //setcookie('username', '', time() - 3600, '/');
     header('Location: login.php');
-    die();
 }
 
-function setLinks()
-{
-
-    if (!checkSession()[0]) {
-        $links = <<<LINKS
-        <a href="register.php">Registrati</a>
-        <br>
-        <a href="forgot_password.php">Password dimenticata?</a>
-        LINKS;
-    } else {
-        $links = <<<LINKS
-        <a href="index.php">Homepage</a>
-        <br>
-        <a href="logout.php">Logout</a>
-        LINKS;
-    }
-    return $links;
-}
 
 function isRegistered($username, $password)
 {
-
     $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
     if (!$conn) {
-        die("Connessione fallita: " . mysqli_connect_error());
+        die('Connessione fallita: ' . mysqli_connect_error());
     }
 
     // Query per selezionare tutti i record dalla tabella users
-    $query = "SELECT UserID FROM utenti where username = '$username'";
-    
+    $query = "SELECT UserID FROM Utenti where Username = '$username'";
+
     // Esecuzione della query
     $result = mysqli_query($conn, $query);
 
     if ($result) {
-        // Controllo se ci sono record        
+        // Controllo se ci sono record
         if (mysqli_num_rows($result) > 0) {
-            return true; //nome utente gia in uso
+            return true;  // nome utente gia in uso
         } else {
             return false;
         }
@@ -113,9 +94,9 @@ function registerUser($username, $password)
 {
     // Connessione al database
     $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
-    
+
     if (!$conn) {
-        die("Connessione fallita: ". mysqli_connect_error());
+        die('Connessione fallita: ' . mysqli_connect_error());
     }
 
     if (isRegistered($username, $password)) {
@@ -123,19 +104,17 @@ function registerUser($username, $password)
     }
 
     try {
-    
         // Query per aggiungere un nuovo record alla tabella users
-        $query = "INSERT INTO utenti (username, password) VALUES ('$username', '$password');";
-        
+        $query = "INSERT INTO Utenti (Username, Password) VALUES ('$username', SHA2('$password', 256));";
+
         // Esecuzione della query
         $result = mysqli_query($conn, $query);
-        
+
         if ($result) {
             return [true, 'Registrazione avvenuta con successo'];
         } else {
             return [false, 'Errore: ' . mysqli_error($conn)];
         }
-
     } catch (\Exception $e) {
         return [false, 'Errore: ' . $e->getMessage()];
     }
@@ -143,51 +122,53 @@ function registerUser($username, $password)
     mysqli_close($conn);
 }
 
-function eliminaAccount($username) {
+function eliminaAccount($username)
+{
     // Connessione al database
     $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
-    
+
     if (!$conn) {
-        die("Connessione fallita: ". mysqli_connect_error());
+        die('Connessione fallita: ' . mysqli_connect_error());
     }
-    
+
     // Query per eliminare un record dalla tabella users
-    $query = "DELETE FROM utenti WHERE username = '$username';";
-    
+    $query = "DELETE FROM Utenti WHERE Username = '$username';";
+
     // Esecuzione della query
     $result = mysqli_query($conn, $query);
-    
+
     if ($result) {
         return [true, 'Account eliminato con successo'];
     } else {
-        return [false, 'Errore: '. mysqli_error($conn)];
+        return [false, 'Errore: ' . mysqli_error($conn)];
     }
 
     mysqli_close($conn);
 }
 
-function resetPassword($username, $password) {
+function resetPassword($email, $password)
+{
     // Connessione al database
     $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
-    
+
     if (!$conn) {
-        die("Connessione fallita: ". mysqli_connect_error());
+        die('Connessione fallita: ' . mysqli_connect_error());
     }
 
     if ($_SESSION['username'] != $username) {
         return [false, 'Nome utente non valido'];
     }
-    
+
     // Query per aggiornare la password di un utente
-    $query = "UPDATE utenti SET password = '$password' WHERE username = '$username';";
-    
+    $query = "UPDATE Utenti SET password = SHA2('$password', 256) WHERE Email = '$email';";
+
     // Esecuzione della query
     $result = mysqli_query($conn, $query);
-    
+
     if ($result) {
         return [true, 'Password ripristinata con successo'];
     } else {
-        return [false, 'Errore: '. mysqli_error($conn)];
+        return [false, 'Errore: ' . mysqli_error($conn)];
     }
 
     mysqli_close($conn);

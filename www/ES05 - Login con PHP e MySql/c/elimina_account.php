@@ -4,19 +4,17 @@ require 'functions.php';
 
 session_start();
 
-$user = $_GET['user'];
+if (!checkSession()[0]) {
+    header('Location: index.php');
+    exit;
+}
 
-if ($user) {
-
-    [$delRetval, $delRetmsg] = eliminaAccount($user);
-
-    if ($delRetval) {
-        session_destroy();
-        header('Location: login.php');
-    }
-} else {
+[$retval, $retmsg] = eliminaAccount($_SESSION['username']);
+if ($retval) {
+    session_destroy();
     header('Location: index.php');
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -27,6 +25,6 @@ if ($user) {
     <title>Errore Eliminazione Account</title>
 </head>
 <body>
-    <h2 id="error-container"><?=$delRetmsg?></h2>
+    <h2 id="error-container"><?= $delRetmsg ?></h2>
 </body>
 </html>
