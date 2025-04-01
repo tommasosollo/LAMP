@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if ($resetRetval) {
-        unset($_SESSION['username']);
+        session_unset();
         header('Location: login.php?error=Password%20reset%20effettuato%20con%20successo');
         die();
     }

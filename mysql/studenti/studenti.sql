@@ -157,3 +157,8 @@ from studenti s
 LEFT JOIN valutazioni v ON s.matricola = v.FK_studenti 
 WHERE v.voto IS NULL;
 
+select s.cognome as 'studenti senza voti' 
+from studenti s 
+LEFT JOIN valutazioni v ON s.matricola = v.FK_studenti 
+GROUP BY s.matricola
+HAVING COUNT(v.voto) = 0;

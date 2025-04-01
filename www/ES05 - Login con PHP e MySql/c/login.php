@@ -4,9 +4,18 @@ require 'functions.php';
 
 session_start();
 
+$tempo_blocco = 60;
+
+if($_SERVER['REQUEST_METHOD'] == 'GET') {
+    $_SESSION['tentativi'] = 5;
+    $_SESSION['timestamp'] = 0;
+    $_SESSION['lastUsername'] = "";
+}
+
 $msg = $_GET['error'] ?? '';
 
 if (isset($_SESSION['username'])) {
+
     header('Location: index.php');
     exit();
 }
@@ -34,6 +43,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } catch (Exception $e) {
         $msg = 'Errore durante il login: ' . $e->getMessage();
     }
+    else {
+        if($_POST['username']==$_SESSION['lastUsername']) {
+            $msg = $loginRetmsg;
+            $_SESSION['tentativi']--;
+            $msg .= '. Tentativi rimasti: '.$_SESSION['tentativi'];
+            if($_SESSION['tentativi'] == 0) {
+                $msg = 'Tentativi esauriti, account bloccato per 1 minuto';
+                $_SESSION['timestamp'] = $_SERVER['REQUEST_TIME'];
+            }
+        }
+        else {
+            $_SESSION['lastUsername'] = $_POST['username'];
+            $_SESSION['tentativi'] = 5;
+        }
+    }
+
+} else if ($_SESSION['timestamp']) {
+
+    if($_SESSION['timestamp'] + $tempo_blocco < $_SERVER['REQUEST_TIME']) {
+        $_SESSION['tentativi'] = 5;
+        $_SESSION['timestamp'] = null;
+    }
+    else $msg = 'Account Bloccato. Riprova tra ' . ($_SESSION['timestamp'] + $tempo_blocco - $_SERVER['REQUEST_TIME']) . " secondi";
+
 }
 
 // set links
@@ -77,6 +110,7 @@ if (isset($_POST['ricorda'])) {
 
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
             
+
         <input type="text" name="username" id="username" placeholder="Username" value = "<?= htmlspecialchars($username) ?>"  pattern=".{3,}" required title="Minimo 3 lettere">
             <br>
             
