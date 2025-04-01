@@ -14,6 +14,7 @@ function checkSession()
     }
 }
 
+
 function login_check($username, $password)
 {
     // Connessione al database
