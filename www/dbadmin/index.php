@@ -15,8 +15,8 @@ $start_from = ($page - 1) * $per_page;
 // Definizione delle costanti per la connessione al database 
 define('DB_SERVER', 'localhost'); //getenv('DB_HOST')
 define('DB_NAME', 'gestione_voli');
-define('DB_USER', 'root'); //TODO: Errore!: SQLSTATE[HY000] [1044] Access denied for user 'lamp'@'%' to database 'gestione_voli'
-define('DB_PASSWORD', 'mariadb');
+define('DB_USER', 'dbadmin'); //TODO: Errore!: SQLSTATE[HY000] [1044] Access denied for user 'lamp'@'%' to database 'gestione_voli'
+define('DB_PASSWORD', 'lamp');
 
 $dbconn;
 
@@ -24,13 +24,13 @@ function open_db(&$pdo) {
     $host = '127.0.0.1';
     $port = 3306;
     $dbname = 'gestione_voli';
-    $username = 'root';
-    $password = 'mariadb';
+    $username = 'dbadmin';
+    $password = 'lamp';
 
     try {
         $dsn = "mysql:host=$host;port=$port;dbname=$dbname;charset=utf8";
-        $pdo = new PDO($dsn, $username, $password);
-        //$pdo = new PDO("mysql:host=".DB_SERVER.";port=3306;dbname=".DB_NAME, DB_USER, DB_PASSWORD);
+        //$pdo = new PDO($dsn, $username, $password);
+        $pdo = new PDO("mysql:host=".DB_SERVER.";port=3306;dbname=".DB_NAME, DB_USER, DB_PASSWORD);
     } catch (PDOException $e) {
         print "Errore!: " . $e->getMessage() . "<br/>";
         die();
