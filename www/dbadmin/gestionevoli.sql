@@ -1,15 +1,13 @@
---#collegamento al server MARIADB e gestione del db
---docker exec -it lamp_mariadb bash
---mysql -u root --password=lamp
--- mysql -u root -plamp -h 172.23.0.2
+--#collegamento al server DB
+-- mysql -u root -p 
 -- crea il database "gestione_voli"
 CREATE DATABASE gestione_voli;
 -- seleziona il database appena creato
 USE gestione_voli;
 
-CREATE USER IF NOT EXISTS lamp@localhost IDENTIFIED BY 'lamp';
-GRANT SELECT, INSERT, UPDATE, DELETE ON gestione_voli.* TO lamp@localhost;
-GRANT ALL ON gestione_voli.* TO lamp@localhost;
+CREATE USER IF NOT EXISTS dbadmin@localhost IDENTIFIED BY 'lamp';
+GRANT SELECT, INSERT, UPDATE, DELETE ON gestione_voli.* TO dbadmin@localhost;
+GRANT ALL ON gestione_voli.* TO dbadmin@localhost;
 
 -- crea la tabella "aerei"
 CREATE TABLE aerei (

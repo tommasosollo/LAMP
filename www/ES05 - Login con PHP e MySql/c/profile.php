@@ -4,14 +4,12 @@ require 'functions.php';
 
 session_start();
 
-if(!checkSession()[0]) {
+if (!checkSession()[0]) {
     header('Location: login.php');
     exit;
 }
 
 $user = $_SESSION['username'];
-
-
 
 ?>
 
@@ -28,7 +26,7 @@ $user = $_SESSION['username'];
 <body>
     <div id="container">
 
-        <h2>Benvenuto <?=$user?> nell'area profilo del sito</h2>
+        <h2>Benvenuto <?= $user ?> nell'area profilo del sito</h2>
 
         <div class="clickable-div" onclick="location.href='index.php'" >
         <h2>Homepage</h2>
@@ -46,7 +44,7 @@ $user = $_SESSION['username'];
         <h2>Modifica Password</h2>
         </div>
 
-        <div class="clickable-div" onclick="location.href='elimina_account.php?user=<?=$user?>'" >
+        <div class="clickable-div" onclick="location.href='elimina_account.php'" >
         <h2>Elimina Account</h2>
         </div>
 
