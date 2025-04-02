@@ -40,23 +40,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header($link);
             die();
         }
-    } catch (Exception $e) {
-        $msg = 'Errore durante il login: ' . $e->getMessage();
-    }
-    else {
-        if($_POST['username']==$_SESSION['lastUsername']) {
-            $msg = $loginRetmsg;
-            $_SESSION['tentativi']--;
-            $msg .= '. Tentativi rimasti: '.$_SESSION['tentativi'];
-            if($_SESSION['tentativi'] == 0) {
-                $msg = 'Tentativi esauriti, account bloccato per 1 minuto';
-                $_SESSION['timestamp'] = $_SERVER['REQUEST_TIME'];
+    
+        else {
+            if($_POST['username']==$_SESSION['lastUsername']) {
+                $msg = $loginRetmsg;
+                $_SESSION['tentativi']--;
+                $msg .= '. Tentativi rimasti: '.$_SESSION['tentativi'];
+                if($_SESSION['tentativi'] == 0) {
+                    $msg = 'Tentativi esauriti, account bloccato per 1 minuto';
+                    $_SESSION['timestamp'] = $_SERVER['REQUEST_TIME'];
+                }
+            }
+            else {
+                $_SESSION['lastUsername'] = $_POST['username'];
+                $_SESSION['tentativi'] = 5;
             }
         }
-        else {
-            $_SESSION['lastUsername'] = $_POST['username'];
-            $_SESSION['tentativi'] = 5;
-        }
+    } catch (Exception $e) {
+        $msg = 'Errore durante il login: ' . $e->getMessage();
     }
 
 } else if ($_SESSION['timestamp']) {

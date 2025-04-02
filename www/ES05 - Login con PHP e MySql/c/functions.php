@@ -106,7 +106,7 @@ function registerUser($username, $password, $email, $nome, $cognome)
     try {
         // Query per aggiungere un nuovo record alla tabella users
 
-        $query = "INSERT INTO utenti (username, password, email, nome, cognome) VALUES ('$username', SHA2('$password', 256), '$email', '$nome', '$cognome');";
+        $query = "INSERT INTO Utenti (Username, Password, Email, Nome, Cognome) VALUES ('$username', SHA2('$password', 256), '$email', '$nome', '$cognome');";
 
         // Esecuzione della query
         $result = mysqli_query($conn, $query);
