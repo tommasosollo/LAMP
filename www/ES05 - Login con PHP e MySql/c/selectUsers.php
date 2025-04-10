@@ -29,7 +29,7 @@ try {
         $html_out .= '</table>';
     }
 } catch (Exception $e) {
-    echo 'errore';
+    $html_out = 'errore:' . $e->getMessage();
 }
 
 ?>
