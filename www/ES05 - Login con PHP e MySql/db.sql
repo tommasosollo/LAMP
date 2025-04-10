@@ -14,5 +14,3 @@ CREATE TABLE IF NOT EXISTS Utenti (
     Cognome VARCHAR(50) NOT NULL
 );
 
-INSERT INTO Utenti (Username, Password, Email, Nome, Cognome) VALUES 
-('user1', 'password1', 'user1@example.com', 'User', 'One');

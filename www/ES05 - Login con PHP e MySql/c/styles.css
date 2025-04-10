@@ -58,3 +58,11 @@ input[type="submit"] {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     background-color: rgb(246, 255, 252);
 }
+
+table {
+    border: 2px black solid;
+}
+
+td {
+    border: 2px solid black;
+}

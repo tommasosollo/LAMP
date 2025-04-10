@@ -18,13 +18,14 @@ try {
     $result = mysqli_query($conn, $query);
 
     if ($result) {
-        $html_out = '<table>';
+        $html_out = '<table style="border: 2px solid black;">';
+        $html_out .= '<tr><td>ID</td><td>Username</td><td>Nome</td><td>Cognome</td></tr>';
         while ($row = mysqli_fetch_assoc($result)) {
             $html_out .= '<tr>';
             foreach ($row as $column) {
                 $html_out .= "<td>$column</td>";
             }
-            $html_out .= '<tr>';
+            $html_out .= '</tr>';
         }
         $html_out .= '</table>';
     }
@@ -39,7 +40,8 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <title>Users</title>
 </head>
 <body>
     <?= $html_out ?>
