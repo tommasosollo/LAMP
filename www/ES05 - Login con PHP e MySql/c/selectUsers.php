@@ -8,15 +8,10 @@ if ($_SESSION['username'] != 'admin') {
 }
 
 try {
-
     $html_table = selectUsers("Utenti");
-
 } catch (Exception $e) {
-
     $html_table = 'errore:' . $e->getMessage();
 }
-
-mysqli_close($conn);
 
 ?>
 

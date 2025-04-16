@@ -183,7 +183,7 @@ function selectUsers($table)
         throw new Exception('Connessione fallita: ' . mysqli_connect_error());
     }
 
-    $query = 'SELECT UserID, Username, Nome, Cognome from Utenti';
+    $query = 'SELECT UserID, Username, Nome, Cognome from ' .$table;
 
     $result = mysqli_query($conn, $query);
 
