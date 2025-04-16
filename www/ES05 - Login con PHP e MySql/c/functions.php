@@ -175,4 +175,40 @@ function resetPassword($email, $password)
     mysqli_close($conn);
 }
 
+function selectUsers($table) 
+{
+    $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+
+    if (!$conn) {
+        throw new Exception('Connessione fallita: ' . mysqli_connect_error());
+    }
+
+    $query = 'SELECT UserID, Username, Nome, Cognome from Utenti';
+
+    $result = mysqli_query($conn, $query);
+
+    if(!$result) throw new Exception("Errore nella query");
+    
+    
+    $html_out = '<table>';
+
+    $fields = mysqli_fetch_fields($result);
+
+    $html_out .= '<theader>';
+    foreach ($fields as $field) {
+        $html_out .= "<th>$field->name</th>";
+    }
+
+    while ($row = mysqli_fetch_assoc($result)) {
+        $html_out .= '<tr>';
+        foreach ($row as $column) {
+            $html_out .= "<td>$column</td>";
+        }
+        $html_out .= '</tr>';
+    }
+    $html_out .= '</table>';
+
+    return $html_out;
+}
+
 ?>

@@ -1,4 +1,5 @@
 <?php
+require 'functions.php';
 
 session_start();
 
@@ -6,32 +7,16 @@ if ($_SESSION['username'] != 'admin') {
     header('Location: index.php');
 }
 
-define('DB_SERVER', 'localhost');
-define('DB_USERNAME', 'ES05_user');
-define('DB_PASSWORD', 'password');
-define('DB_NAME', 'ES05');
-
 try {
-    $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
-    $query = 'SELECT UserID, Username, Nome, Cognome from Utenti';
-    $result = mysqli_query($conn, $query);
+    $html_table = selectUsers("Utenti");
 
-    if ($result) {
-        $html_out = '<table style="border: 2px solid black;">';
-        $html_out .= '<tr><td>ID</td><td>Username</td><td>Nome</td><td>Cognome</td></tr>';
-        while ($row = mysqli_fetch_assoc($result)) {
-            $html_out .= '<tr>';
-            foreach ($row as $column) {
-                $html_out .= "<td>$column</td>";
-            }
-            $html_out .= '</tr>';
-        }
-        $html_out .= '</table>';
-    }
 } catch (Exception $e) {
-    $html_out = 'errore:' . $e->getMessage();
+
+    $html_table = 'errore:' . $e->getMessage();
 }
+
+mysqli_close($conn);
 
 ?>
 
@@ -44,6 +29,8 @@ try {
     <title>Users</title>
 </head>
 <body>
-    <?= $html_out ?>
+    <?= $html_table ?>
 </body>
 </html>
+
+
