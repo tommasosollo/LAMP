@@ -1,24 +1,26 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <title>Scanner Codice a Barre</title>
-    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
-</head>
-<body>
-    <h2>Scansiona un codice a barre</h2>
-    <div id="reader" style="width:300px;"></div>
-    <div id="result"></div>
+<?php
+$barcode = "3017620429484"; // Nutella
 
-    <script>
-        function onScanSuccess(decodedText, decodedResult) {
-            // Mostra il risultato
-            document.getElementById('result').innerText = "Codice letto: " + decodedText;
-        }
+// 1. Prendi info del prodotto
+$productJson = file_get_contents("https://world.openfoodfacts.org/api/v0/product/$barcode.json");
+$productData = json_decode($productJson, true);
 
-        const html5QrcodeScanner = new Html5QrcodeScanner(
-            "reader", { fps: 10, qrbox: 250 });
-        html5QrcodeScanner.render(onScanSuccess);
-    </script>
-</body>
-</html>
+// 2. Estrai una categoria (es: chocolate-spreads)
+$categories = $productData['product']['categories_tags'] ?? [];
+$firstCategory = $categories[4] ?? null; // chocolate-spreads
+
+if ($firstCategory) {
+    $category = str_replace("en:", "", $firstCategory);
+
+    // 3. Trova prodotti nella stessa categoria
+    $relatedJson = file_get_contents("https://world.openfoodfacts.org/category/$category.json");
+    $relatedData = json_decode($relatedJson, true);
+
+    echo "<h2>Prodotti correlati nella categoria: $category</h2>";
+    foreach ($relatedData['products'] as $item) {
+        echo "<p><strong>" . htmlspecialchars($item['product_name'] ?? 'Senza nome') . "</strong></p>";
+    }
+} else {
+    echo "Categoria non trovata.";
+}
+?>
