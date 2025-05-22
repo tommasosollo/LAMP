@@ -14,7 +14,8 @@ function getProduct($barcode)
     }
 }
 
-function distanzaEuclidea($a, $b) {
+function distanzaEuclidea($a, $b)
+{
     $somma = 0;
     for ($i = 0; $i < count($a); $i++) {
         $somma += pow($a[$i] - $b[$i], 2);
@@ -22,8 +23,9 @@ function distanzaEuclidea($a, $b) {
     return sqrt($somma);
 }
 
-function sigmoid($t){
-   return 1 / (1 + pow(M_EULER, -$t));
+function sigmoid($t)
+{
+    return 1 / (1 + pow(M_EULER, -$t));
 }
 
 $htmlout = '';
@@ -60,7 +62,6 @@ if ($firstCategory) {
     foreach ($relatedData['products'] as $item) {
         $eco = $item['ecoscore_grade'] ?? null;
         $nutri = $item['nutriscore_grade'] ?? null;
-        $price = $item['price'] ?? null; // probabilmente sarà NULL, Open Food Facts non lo ha
         $origin = $item['country_tags'] ?? null;
         $packaging = $item['packaging_tags'] ?? null;
 
@@ -71,10 +72,7 @@ if ($firstCategory) {
         $ecoVal = $ecoScoreMap[strtolower($eco)] ?? null;
         $nutriVal = $nutriScoreMap[strtolower($nutri)] ?? null;
 
-        
-        $price = sigmoid($price ?? 0) * 5; // Normalizza il prezzo tra 0 e 5
-
-        if($origin){
+        if ($origin) {
             $parts = explode(':', $origin);
             $origin = strtolower($parts[1] ?? $origin);
 
@@ -84,42 +82,38 @@ if ($firstCategory) {
                 'italien' => 'italy',
                 'italia' => 'italy',
                 'italy' => 'italy',
-
                 // Spain
                 'espagne' => 'spain',
                 'spanien' => 'spain',
                 'españa' => 'spain',
                 'spain' => 'spain',
-
                 // Belgium
                 'belgique' => 'belgium',
                 'belgien' => 'belgium',
                 'belgio' => 'belgium',
                 'belgium' => 'belgium',
-
                 // France
                 'france' => 'france',
                 'francia' => 'france',
                 'frankreich' => 'france',
-
                 // Switzerland
                 'suisse' => 'switzerland',
                 'schweiz' => 'switzerland',
                 'svizzera' => 'switzerland',
                 'switzerland' => 'switzerland',
-
                 // Poland
                 'pologne' => 'poland',
                 'polska' => 'poland',
                 'polonia' => 'poland',
                 'poland' => 'poland',
-
                 // European Union
                 'union-europeenne' => 'european-union',
                 'unione-europea' => 'european-union',
                 'europäische-union' => 'european-union',
                 'european-union' => 'european-union',
             ];
+
+            $origin = $nameMap[$origin] ?? $origin;
 
             $originScoreMap = [
                 'italy' => 1,
@@ -134,13 +128,13 @@ if ($firstCategory) {
             if ($origin && isset($originScoreMap[$origin])) {
                 $origin = $originScoreMap[$origin];
             } else {
-                $origin = 0;
+                $origin = 5;
             }
 
-            $origin = sigmoid($origin) * 5; // Normalizza l'origine tra 0 e 5
+            $origin = sigmoid($origin) * 5;  // Normalizza l'origine tra 0 e 5
         }
 
-        if($packaging){
+        if ($packaging) {
             $packagingScoreMap = [
                 'en:glass' => 1,
                 'en:metal' => 2,
@@ -148,20 +142,17 @@ if ($firstCategory) {
                 'en:plastic' => 4
             ];
 
-
             $packagingVal = $packagingScoreMap[$packaging[0]] ?? null;
-        }
-        else {
-            $packagingVal = 0;
+        } else {
+            $packagingVal = 5;
         }
 
-        $vettori[] = [$ecoVal ?? 0, $nutriVal ?? 0, $price, $origin ?? 0, $packagingVal ?? 0];
+        $vettori[] = [$ecoVal ?? 5, $nutriVal ?? 5, $origin ?? 5, $packagingVal ?? 5];
     }
 
-    //calcolare distanza con vettore utente
-    $vettoreUtente = [1, 3, 3, 2, 1]; // esempio di vettore utente
-    // 5 = Eco Score A, 2 = Nutri Score B, 3 = Prezzo, 2 = Origine, 1 = Packaging 
-
+    // calcolare distanza con vettore utente
+    $vettoreUtente = [1, 3, 2, 1];  // esempio di vettore utente
+    // 5 = Eco Score A, 2 = Nutri Score B, 2 = Origine, 1 = Packaging
 
     $distanze = [];
     foreach ($vettori as $index => $vettore) {
@@ -169,7 +160,7 @@ if ($firstCategory) {
         $distanze[$index] = $distanza;
     }
 
-    asort($distanze); // ordina le distanze in ordine crescente
+    asort($distanze);  // ordina le distanze in ordine crescente
     $htmlout .= '<h3>Prodotti correlati ordinati per distanza:</h3>';
     $htmlout .= '<ul>';
     foreach ($distanze as $index => $distanza) {
@@ -181,18 +172,14 @@ if ($firstCategory) {
             if (!empty($relatedProduct['image_front_small_url'])) {
                 $htmlout .= "<img src='" . $relatedProduct['image_front_small_url'] . "'>";
             } else {
-                $htmlout .= "<p>(Nessuna immagine disponibile)</p>";
+                $htmlout .= '<p>(Nessuna immagine disponibile)</p>';
             }
-
 
             $eco = $relatedProduct['ecoscore_grade'] ?? 0;
             $htmlout .= '<p>Eco Score: ' . strtoupper($eco) . '</p>';
 
             $nutri = $relatedProduct['nutriscore_grade'] ?? 0;
             $htmlout .= '<p>Nutri Score: ' . strtoupper($nutri) . '</p>';
-
-            $price = $relatedProduct['price'] ?? 0;
-            $htmlout .= '<p>Prezzo: ' . $price . '</p>';
 
             $origin = $relatedProduct['origins_tags'] ?? [];
             $origin = !empty($origin) ? str_replace('fr:', '', $origin[0]) : 'N/A';
@@ -203,25 +190,23 @@ if ($firstCategory) {
             $htmlout .= '<p>Packaging: ' . $packaging . '</p>';
 
             $htmlout .= '</li>';
-        }
-        else {
+        } else {
             $htmlout .= '<li>Prodotto non trovato</li>';
         }
         $htmlout .= '<p>Distanza: ' . $distanza . '</p>';
     }
     $htmlout .= '</ul>';
-
-
-
 } else {
-    $htmlout .= 'Categoria non trovata.';
+    if (isset($_GET['barcode']))
+        $htmlout .= 'Categoria non trovata.';
 }
 
 // una volta trovati i prodotti correlati, calcolare la distanza tra essi e il vettore dell'utente in base a:
 // prezzo, eco-score, nutriscore
+
 /**
  * {
-* "product_name": "Nutella",
+ * "product_name": "Nutella",
  * "ecoscore_grade": "e",
  * "nutriscore_grade": "e",
  * "labels_tags": ["palm-oil", "non-vegan", "non-vegetarian"],
