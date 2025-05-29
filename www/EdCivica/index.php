@@ -149,7 +149,6 @@ if ($firstCategory) {
 
         $vettori[] = [$ecoVal ?? 5, $nutriVal ?? 5, $origin ?? 5, $packagingVal ?? 5];
     }
-
     // calcolare distanza con vettore utente
     $vettoreUtente = [1, 3, 2, 1];  // esempio di vettore utente
     // 5 = Eco Score A, 2 = Nutri Score B, 2 = Origine, 1 = Packaging
